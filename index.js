@@ -2,21 +2,14 @@
 
 'use strict';
 
-var config       = require('./.redis.json');
-var rHost        = process.env.HOST || config.host;
-var rPort        = process.env.PORT || config.port;
-var rPasswd      = process.env.PASSWD || config.passwd;
-var env          = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'development';
+var config, rHost, rPort, rPasswd, redisClient;
 
-var app          = require('koa')();
-var responseTime = require('koa-response-time');
-var compress     = require('koa-compress');
-var logger       = require('koa-logger');
-var Router       = require('koa-router');
-var router       = new Router(app);
-
-var redisClient;
 if ('test' !== env) {
+  config       = require('./.redis.json');
+  rHost        = process.env.HOST || config.host;
+  rPort        = process.env.PORT || config.port;
+  rPasswd      = process.env.PASSWD || config.passwd;
   redisClient  = require('redis').createClient(
     rPort,
     rHost, {
@@ -27,6 +20,12 @@ if ('test' !== env) {
   redisClient  = require('redis').createClient();
 }
 
+var app          = require('koa')();
+var responseTime = require('koa-response-time');
+var compress     = require('koa-compress');
+var logger       = require('koa-logger');
+var Router       = require('koa-router');
+var router       = new Router(app);
 var wrapper      = require('co-redis');
 var redisCo      = wrapper(redisClient);
 var genify       = require('thunkify-wrap').genify;
