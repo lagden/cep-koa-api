@@ -5,7 +5,9 @@
 var env = process.env.NODE_ENV || 'development';
 var config, rHost, rPort, rPasswd, redisClient;
 
-if ('test' !== env || 'development' !== env) {
+if ('test' === env || 'development' === env) {
+  redisClient = require('redis').createClient();
+} else {
   if ('production' === env) {
     rHost   = process.env.RHOST;
     rPort   = process.env.RPORT;
@@ -22,8 +24,6 @@ if ('test' !== env || 'development' !== env) {
       no_ready_check: true,
       auth_pass: rPasswd
     });
-} else {
-  redisClient = require('redis').createClient();
 }
 
 var responseTime = require('koa-response-time');
