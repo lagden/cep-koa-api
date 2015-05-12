@@ -10,9 +10,9 @@
 
 ## API
 
-### /cep/:code
+### /cep/:zipcode
 
-#### code
+#### zipcode
 
 *Required*
 Type: `string`
