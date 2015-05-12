@@ -28,7 +28,7 @@
     "supertest": "~0.8.2"
   },
   "scripts": {
-    "start": "bin/api.js",
+    "start": "node --harmony api.js",
     "test": "NODE_ENV=test mocha --harmony --require should"
   },
   "license": "MIT"

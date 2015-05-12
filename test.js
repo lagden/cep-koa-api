@@ -2,7 +2,7 @@
 
 'use strict';
 
-var app = require('./index.js');
+var app = require('./');
 var request = require('supertest').agent(app.listen(3001));
 
 describe('GET /cep', function() {

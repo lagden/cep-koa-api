@@ -1,6 +1,8 @@
-#!/usr/bin/env node --harmony
+/* global console */
 
-var api   = require('..');
+'use strict';
+
+var api   = require('./');
 var porta = 3000;
 
 api.listen(porta);
