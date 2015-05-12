@@ -1,1 +1,1 @@
-web: NODE_ENV=heroku node --harmony api.js
+web: NODE_ENV=production node --harmony api.js

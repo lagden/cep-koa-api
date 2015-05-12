@@ -6,7 +6,7 @@ var env = process.env.NODE_ENV || 'development';
 var config, rHost, rPort, rPasswd, redisClient;
 
 if ('test' !== env) {
-  if ('heroku' === env) {
+  if ('production' === env) {
     rHost   = process.env.HOST;
     rPort   = process.env.PORT;
     rPasswd = process.env.PASSWD;
