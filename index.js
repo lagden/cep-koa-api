@@ -6,18 +6,24 @@ var env = process.env.NODE_ENV || 'development';
 var config, rHost, rPort, rPasswd, redisClient;
 
 if ('test' !== env) {
-  config       = require('./.redis.json');
-  rHost        = process.env.HOST || config.host;
-  rPort        = process.env.PORT || config.port;
-  rPasswd      = process.env.PASSWD || config.passwd;
-  redisClient  = require('redis').createClient(
+  if ('heroku' === env) {
+    rHost   = process.env.HOST;
+    rPort   = process.env.PORT;
+    rPasswd = process.env.PASSWD;
+  } else {
+    config  = require('./.redis.json');
+    rHost   = config.host;
+    rPort   = config.port;
+    rPasswd = config.passwd;
+  }
+  redisClient = require('redis').createClient(
     rPort,
     rHost, {
       no_ready_check: true,
       auth_pass: rPasswd
     });
 } else {
-  redisClient  = require('redis').createClient();
+  redisClient = require('redis').createClient();
 }
 
 var app          = require('koa')();
