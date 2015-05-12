@@ -5,11 +5,13 @@
 var env = process.env.NODE_ENV || 'development';
 var config, rHost, rPort, rPasswd, redisClient;
 
+console.log(process.env);
+
 if ('test' !== env) {
   if ('production' === env) {
-    rHost   = process.env.HOST;
-    rPort   = process.env.PORT;
-    rPasswd = process.env.PASSWD;
+    rHost   = process.env.RHOST;
+    rPort   = process.env.RPORT;
+    rPasswd = process.env.RPASS;
   } else {
     config  = require('./.redis.json');
     rHost   = config.host;
