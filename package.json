@@ -12,16 +12,15 @@
     "node": ">=0.12.0"
   },
   "dependencies": {
-    "co-redis": "~1.1.1",
     "io-cep": "~0.2.3",
+    "ioredis": "~1.2.6",
     "koa": "~0.6.1",
     "koa-compress": "~1.0.7",
     "koa-cors": "~0.0.14",
     "koa-favicon": "~1.2.0",
     "koa-logger": "~1.2.1",
     "koa-response-time": "~1.0.2",
-    "koa-router": "~4.3.2",
-    "redis": "~0.10.3"
+    "koa-router": "~4.3.2"
   },
   "devDependencies": {
     "mocha": "*",
