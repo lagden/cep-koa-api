@@ -35,9 +35,7 @@ var cors         = require('koa-cors');
 var app          = require('koa')();
 var wrapper      = require('co-redis');
 var redisCo      = wrapper(redisClient);
-var genify       = require('thunkify-wrap').genify;
-var correio      = require('io-cep');
-var consulta     = genify(correio);
+var consulta     = require('io-cep');
 var router       = new Router(app);
 
 module.exports = app;
