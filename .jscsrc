@@ -6,7 +6,6 @@
     "mark": "'",
     "escape": true
   },
-  "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
   "disallowQuotedKeysInObjects": "allButReserved",
   "requireCapitalizedComments": {
     "allExcept": ["jshint", "global"]

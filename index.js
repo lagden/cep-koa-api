@@ -3,29 +3,27 @@
 'use strict';
 
 var env = process.env.NODE_ENV || 'development';
-var config, rHost, rPort, rPasswd, redisClient;
+var config, redisOpts;
 
-if ('test' === env || 'development' === env) {
-  redisClient = require('redis').createClient();
+if ('production' === env) {
+  redisOpts = {
+    port: process.env.RPORT,
+    host: process.env.RHOST,
+    password: process.env.RPASS,
+  };
+} else if ('development' === env) {
+  config = require('./.redis.json');
+  redisOpts = {
+    port: config.port,
+    host: config.host,
+    password: config.passwd,
+  };
 } else {
-  if ('production' === env) {
-    rHost   = process.env.RHOST;
-    rPort   = process.env.RPORT;
-    rPasswd = process.env.RPASS;
-  } else {
-    config  = require('./.redis.json');
-    rHost   = config.host;
-    rPort   = config.port;
-    rPasswd = config.passwd;
-  }
-  redisClient = require('redis').createClient(
-    rPort,
-    rHost, {
-      no_ready_check: true,
-      auth_pass: rPasswd,
-    });
+  redisOpts = {};
 }
 
+var Redis        = require('ioredis');
+var consulta     = require('io-cep');
 var responseTime = require('koa-response-time');
 var compress     = require('koa-compress');
 var logger       = require('koa-logger');
@@ -33,10 +31,8 @@ var Router       = require('koa-router');
 var favicon      = require('koa-favicon');
 var cors         = require('koa-cors');
 var app          = require('koa')();
-var wrapper      = require('co-redis');
-var redisCo      = wrapper(redisClient);
-var consulta     = require('io-cep');
 var router       = new Router(app);
+var redis        = new Redis(redisOpts);
 
 module.exports = app;
 
@@ -60,7 +56,7 @@ app
     '/cep/:zipcode',
     function*(next) {
       this.params.zipcode = this.params.zipcode.split('-').join('');
-      this.cep = yield redisCo.get(this.params.zipcode);
+      this.cep = yield redis.get(this.params.zipcode);
       yield next;
     },
     function*(next) {
@@ -73,7 +69,7 @@ app
     },
     function*() {
       if (this.cep.success) {
-        yield redisCo.set(this.params.zipcode, JSON.stringify(this.cep));
+        yield redis.set(this.params.zipcode, JSON.stringify(this.cep));
       }
       this.body = this.cep;
     }
