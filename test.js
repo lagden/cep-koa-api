@@ -19,7 +19,7 @@ describe('GET /cep', function() {
           'localidade',
           'uf',
           'cep',
-          'success'
+          'success',
         ]);
         done();
       });
@@ -34,7 +34,7 @@ describe('GET /cep', function() {
         }
         Object.keys(res.body).should.eql([
           'success',
-          'message'
+          'message',
         ]);
         done();
       });

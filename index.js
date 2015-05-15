@@ -22,7 +22,7 @@ if ('test' === env || 'development' === env) {
     rPort,
     rHost, {
       no_ready_check: true,
-      auth_pass: rPasswd
+      auth_pass: rPasswd,
     });
 }
 
@@ -50,29 +50,29 @@ app
   .use(compress())
   .use(responseTime())
   .use(router.middleware())
-  .get('/', function *() {
+  .get('/', function*() {
     this.redirect('/cep');
   })
-  .get('/cep', function *() {
+  .get('/cep', function*() {
     this.body = 'usage: /cep/04080012';
   })
   .get(
     '/cep/:zipcode',
-    function *(next) {
+    function*(next) {
       this.params.zipcode = this.params.zipcode.split('-').join('');
       this.cep = yield redisCo.get(this.params.zipcode);
       yield next;
     },
-    function *(next) {
-      if(this.cep === null) {
+    function*(next) {
+      if (this.cep === null) {
         this.cep = yield consulta(this.params.zipcode);
         yield next;
       } else {
         this.body = JSON.parse(this.cep);
       }
     },
-    function *() {
-      if(this.cep.success) {
+    function*() {
+      if (this.cep.success) {
         yield redisCo.set(this.params.zipcode, JSON.stringify(this.cep));
       }
       this.body = this.cep;

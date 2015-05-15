@@ -1,0 +1,14 @@
+{
+  "preset": "node-style-guide",
+  "validateIndentation": 2,
+  "esnext": true,
+  "validateQuoteMarks": {
+    "mark": "'",
+    "escape": true
+  },
+  "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+  "disallowQuotedKeysInObjects": "allButReserved",
+  "requireCapitalizedComments": {
+    "allExcept": ["jshint", "global"]
+  }
+}
