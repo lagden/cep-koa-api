@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "repository": "lagden/cep-koa-api",
   "description": "CEP Koa API application",
   "keywords": [
@@ -9,27 +9,42 @@
     "api"
   ],
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=6.7.0"
   },
   "dependencies": {
-    "io-cep": "~0.3.0",
-    "ioredis": "~1.2.6",
-    "koa": "~0.6.1",
-    "koa-compress": "~1.0.7",
-    "koa-cors": "~0.0.14",
-    "koa-favicon": "~1.2.0",
-    "koa-logger": "~1.2.1",
-    "koa-response-time": "~1.0.2",
-    "koa-router": "~4.3.2"
+    "babel-plugin-transform-async-to-generator": "6.16.0",
+    "babel-register": "6.16.3",
+    "debug": "2.2.0",
+    "ioredis": "2.4.0",
+    "kcors": "2.2.0",
+    "koa": "2.0.0",
+    "koa-compress": "2.0.0",
+    "koa-favicon": "2.0.0",
+    "koa-response-time": "2.0.0",
+    "koa-route": "3.2.0",
+    "lagden-cep": "1.0.0"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "*",
-    "supertest": "~0.8.2"
+    "ava": "0.16.0",
+    "pify": "2.3.0",
+    "supertest": "2.0.0",
+    "supertest-as-promised": "4.0.0",
+    "xo": "0.16.0"
   },
   "scripts": {
-    "start": "node --harmony api.js",
-    "test": "NODE_ENV=test mocha --harmony --require should"
+    "start": "node --harmony index.js",
+    "pretest": "xo",
+    "test": "ava"
+  },
+  "xo": {
+    "envs": [
+      "node"
+    ]
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
   },
   "license": "MIT"
 }
