@@ -8,12 +8,16 @@ const redis = require('./redis');
 const logApi = debug('cepApp');
 const router = new Router();
 
+function cleanup(cep) {
+	return cep.replace(/[^\d]/g, '');
+}
+
 function home(ctx) {
 	ctx.body = 'usage: /cep/04080012';
 }
 
 async function findOnRedis(ctx, next) {
-	const cep = ctx.params.cep;
+	const cep = cleanup(ctx.params.cep);
 	//
 	logApi('consulta via redis', cep);
 	//
