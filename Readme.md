@@ -1,23 +1,36 @@
-# cep-koa-api [![Build Status](https://travis-ci.org/lagden/cep-koa-api.svg?branch=master)](https://travis-ci.org/lagden/cep-koa-api)
+# CEP API Koa
 
-> CEP Koa API application
+[![Build Status][ci-img]][ci]
+[![Coverage Status][coveralls-img]][coveralls]
+[![Dependency Status][dep-img]][dep]
+[![devDependency Status][devDep-img]][devDep]
+
+[ci-img]:        https://travis-ci.org/lagden/cep-koa-api.svg
+[ci]:            https://travis-ci.org/lagden/cep-koa-api
+[coveralls-img]: https://coveralls.io/repos/github/lagden/cep-koa-api/badge.svg?branch=master
+[coveralls]:     https://coveralls.io/github/lagden/cep-koa-api?branch=master
+[dep-img]:       https://david-dm.org/lagden/cep-koa-api.svg
+[dep]:           https://david-dm.org/lagden/cep-koa-api
+[devDep-img]:    https://david-dm.org/lagden/cep-koa-api/dev-status.svg
+[devDep]:        https://david-dm.org/lagden/cep-koa-api#info=devDependencies
+
+Encontre os endereços através de busca por CEP
 
 
-## Usage
+## Uso
 
-'/cep/04080001' or '/cep/04080-001'
+Faça um request para:
+
+'/cep/01310200' or '/cep/01310-200'
 
 
-## API
+### API
 
-### /cep/:zipcode
+#### `GET` /cep/:cep
 
-#### zipcode
-
-*Required*
-Type: `string`
-
-zip code the desired address.
+Nome        | Tipo                 | Requerido | Default           | Descrição
+----------- | -------------------- |:---------:|:-----------------:| ------------
+cep         | `string`             | sim       | -                 | CEP para a consulta
 
 
 ## License

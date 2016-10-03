@@ -1,7 +1,6 @@
-node_modules
-coverage
 .nyc_output
-.coveralls.yml
+coverage
+node_modules
 
 # Others
 cgi-bin

@@ -1,1 +1,1 @@
-web: NODE_ENV=production node --harmony api.js
+web: NODE_ENV=production node index.js

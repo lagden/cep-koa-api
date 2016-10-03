@@ -2,11 +2,12 @@
   "name": "cep-koa-api",
   "version": "1.0.0",
   "repository": "lagden/cep-koa-api",
-  "description": "CEP Koa API application",
+  "description": "Encontre os endereços através de busca por CEP",
   "keywords": [
-    "koa",
     "cep",
-    "api"
+    "busca",
+    "api",
+    "koa2"
   ],
   "engines": {
     "node": ">=6.7.0"
@@ -21,30 +22,36 @@
     "koa-compress": "2.0.0",
     "koa-favicon": "2.0.0",
     "koa-response-time": "2.0.0",
-    "koa-route": "3.2.0",
+    "koa-router": "7.0.1",
     "lagden-cep": "1.0.0"
   },
   "devDependencies": {
     "ava": "0.16.0",
+    "coveralls": "2.11.14",
+    "nyc": "8.3.0",
     "pify": "2.3.0",
     "supertest": "2.0.0",
     "supertest-as-promised": "4.0.0",
     "xo": "0.16.0"
   },
   "scripts": {
-    "start": "node --harmony index.js",
+    "report": "nyc report --reporter=html",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
-    "test": "ava"
+    "test": "nyc ava",
+    "start": "node index.js"
   },
   "xo": {
     "envs": [
       "node"
     ]
   },
-  "ava": {
-    "require": [
-      "babel-register"
-    ]
-  },
+  "main": "index.js",
+  "files": [
+    "app",
+    "public",
+    "LICENSE",
+    "readme.md"
+  ]
   "license": "MIT"
 }
