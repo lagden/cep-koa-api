@@ -21,7 +21,7 @@ Encontre os endereços através de busca por CEP
 
 Faça um request para:
 
-'/cep/01310200' or '/cep/01310-200'
+`/cep/01310200` or `/cep/01310-200`
 
 
 ### API
