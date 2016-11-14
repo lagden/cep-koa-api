@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através de busca por CEP",
   "keywords": [
@@ -22,7 +22,7 @@
     "koa-compress": "2.0.0",
     "koa-response-time": "2.0.0",
     "koa-router": "7.0.1",
-    "lagden-cep": "1.1.0"
+    "lagden-cep": "1.1.1"
   },
   "devDependencies": {
     "ava": "0.16.0",
