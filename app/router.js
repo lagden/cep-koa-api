@@ -23,10 +23,11 @@ function home(ctx) {
 async function findOnRedis(ctx, next) {
 	const cep = cleanup(ctx.params.cep)
 	log('consulta via redis', cep)
-	let r = await redis.get(cep)
-	r = JSON.parse(r)
+	const rs = await redis.get(cep)
+	const r = JSON.parse(rs)
 	log('parse redis', r)
 	if (r && r.success) {
+		ctx.response.etag = crypto.createHash('md5').update(rs).digest('hex')
 		ctx.body = r
 	} else {
 		log('não encontrou nada no redis, então chama o next')
