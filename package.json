@@ -46,6 +46,10 @@
     ],
     "semicolon": false
   },
+  "ava": {
+    "concurrency": 2,
+    "timeout": "30s"
+  },
   "main": "index.js",
   "files": [
     "app",
