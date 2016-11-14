@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através de busca por CEP",
   "keywords": [
@@ -13,26 +13,25 @@
     "node": ">=6.7.0"
   },
   "dependencies": {
-    "babel-plugin-transform-async-to-generator": "6.16.0",
-    "babel-register": "6.16.3",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-register": "^6.18.0",
     "debug": "2.2.0",
     "ioredis": "2.4.0",
     "kcors": "2.2.0",
     "koa": "2.0.0",
     "koa-compress": "2.0.0",
-    "koa-favicon": "2.0.0",
     "koa-response-time": "2.0.0",
     "koa-router": "7.0.1",
-    "lagden-cep": "1.0.0"
+    "lagden-cep": "1.1.0"
   },
   "devDependencies": {
     "ava": "0.16.0",
-    "coveralls": "2.11.14",
-    "nyc": "8.3.0",
+    "coveralls": "2.11.15",
+    "nyc": "8.4.0",
     "pify": "2.3.0",
     "supertest": "2.0.0",
     "supertest-as-promised": "4.0.0",
-    "xo": "0.16.0"
+    "xo": "0.17.1"
   },
   "scripts": {
     "report": "nyc report --reporter=html",
@@ -44,12 +43,12 @@
   "xo": {
     "envs": [
       "node"
-    ]
+    ],
+    "semicolon": false
   },
   "main": "index.js",
   "files": [
     "app",
-    "public",
     "LICENSE",
     "readme.md"
   ],

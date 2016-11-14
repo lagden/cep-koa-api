@@ -1,15 +1,17 @@
-'use strict';
+/* eslint import/no-dynamic-require: 0 */
 
-const Redis = require('ioredis');
+'use strict'
 
-const env = process.env.NODE_ENV || 'development';
+const Redis = require('ioredis')
 
-const config = require(`./config/redis.${env}.json`);
+const env = process.env.NODE_ENV || 'development'
+
+const config = require(`./config/redis.${env}.json`)
 const redisOpts = {
 	port: process.env.RPORT || config.port,
 	host: process.env.RHOST || config.host,
 	password: process.env.RPASS || config.passwd
-};
-const redis = new Redis(redisOpts);
+}
+const redis = new Redis(redisOpts)
 
-module.exports = redis;
+module.exports = redis
