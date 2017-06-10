@@ -1,58 +1,43 @@
 'use strict'
 
-const crypto = require('crypto')
-const debug = require('debug')
 const consulta = require('lagden-cep')
 const Router = require('koa-router')
+const {cleanup} = require('./lib/common')
+const debug = require('./lib/debug')
 const redis = require('./redis')
 
-const log = debug('cep:log')
-const error = debug('cep:error')
 const router = new Router()
 
-function cleanup(cep) {
-	return cep.replace(/[^\d]/g, '')
-}
-
-function home(ctx) {
+function home(ctx, next) {
 	ctx.body = {
 		usage: '/cep/04080012'
 	}
+	return next()
 }
 
-async function findOnRedis(ctx, next) {
+async function find(ctx, next) {
 	const cep = cleanup(ctx.params.cep)
-	log('consulta via redis', cep)
-	const rs = await redis.get(cep)
-	const r = JSON.parse(rs)
-	log('parse redis', r)
-	if (r && r.success) {
-		ctx.response.etag = crypto.createHash('md5').update(rs).digest('hex')
-		ctx.body = r
-	} else {
-		log('não encontrou nada no redis, então chama o next')
-		ctx.cep = cep
-		return next()
-	}
-}
-
-async function findOnCorreios(ctx) {
-	log('consulta via correios', ctx.cep)
 	try {
-		const r = await consulta(ctx.cep)
-		log('consulta body', ctx.cep, r)
-		const rs = JSON.stringify(r)
-		await redis.set(ctx.cep, rs)
-		ctx.response.etag = crypto.createHash('md5').update(rs).digest('hex')
-		ctx.body = r
+		const cached = await redis.get(cep)
+		if (cached) {
+			const r = JSON.parse(cached)
+			ctx.status = 200
+			ctx.body = r
+			return next()
+		}
+
+		const correios = await consulta(cep)
+		redis.set(cep, JSON.stringify(correios))
+		ctx.status = 200
+		ctx.body = correios
+		return next()
 	} catch (err) {
-		error('consulta correios catch', ctx.cep, err)
-		ctx.status = err.status
-		ctx.body = err
+		debug.error('find', cep)
+		ctx.throw(err.status, err.message)
 	}
 }
 
 router.get('/', home)
-router.get('/cep/:cep', findOnRedis, findOnCorreios)
+router.get('/cep/:cep', find)
 
 module.exports = router

@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através de busca por CEP",
   "keywords": [
@@ -10,41 +10,49 @@
     "koa2"
   ],
   "engines": {
-    "node": ">=6.7.0"
+    "node": ">=7.10.0"
   },
   "dependencies": {
-    "babel-plugin-transform-async-to-generator": "^6.16.0",
-    "babel-register": "^6.18.0",
-    "debug": "2.2.0",
-    "ioredis": "2.4.0",
-    "kcors": "2.2.0",
-    "koa": "2.0.0",
+    "debug": "2.6.8",
+    "got": "7.0.0",
+    "ioredis": "3.1.1",
+    "kcors": "2.2.1",
+    "koa": "2.2.0",
     "koa-compress": "2.0.0",
+    "koa-conditional-get": "2.0.0",
+    "koa-etag": "3.0.0",
     "koa-response-time": "2.0.0",
-    "koa-router": "7.0.1",
+    "koa-router": "7.2.0",
     "lagden-cep": "1.1.1"
   },
   "devDependencies": {
-    "ava": "0.16.0",
-    "coveralls": "2.11.15",
-    "nyc": "8.4.0",
-    "pify": "2.3.0",
-    "supertest": "2.0.0",
-    "supertest-as-promised": "4.0.0",
-    "xo": "0.17.1"
+    "ava": "0.19.1",
+    "coveralls": "2.13.1",
+    "nyc": "11.0.2",
+    "supertest": "3.0.0",
+    "xo": "0.18.2"
   },
   "scripts": {
     "report": "nyc report --reporter=html",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
-    "test": "nyc ava",
-    "start": "node index.js"
+    "test": "NODE_ENV=test nyc ava --serial",
+    "start": "NODE_ENV=develop DEBUG=cep-api:* node index.js"
   },
   "xo": {
     "envs": [
       "node"
     ],
-    "semicolon": false
+    "semicolon": false,
+    "rules": {
+      "camelcase": [
+        "error",
+        {
+          "properties": "never"
+        }
+      ],
+      "capitalized-comments": 0
+    }
   },
   "ava": {
     "concurrency": 2,

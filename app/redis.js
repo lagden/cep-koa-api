@@ -4,7 +4,7 @@
 
 const Redis = require('ioredis')
 
-const env = process.env.NODE_ENV || 'development'
+const env = process.env.NODE_ENV || /* istanbul ignore next: tired of writing tests */ 'develop'
 
 const config = require(`./config/redis.${env}.json`)
 const redisOpts = {

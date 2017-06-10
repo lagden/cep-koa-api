@@ -1,1 +1,1 @@
-web: DEBUG=cep:* NODE_ENV=production node index.js
+web: DEBUG=cep-api:* NODE_ENV=production node index.js
