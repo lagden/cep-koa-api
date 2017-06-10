@@ -28,9 +28,9 @@ Faça um request para:
 
 #### `GET` /cep/:cep
 
-Nome        | Tipo                 | Requerido | Default           | Descrição
------------ | -------------------- |:---------:|:-----------------:| ------------
-cep         | `string`             | sim       | -                 | CEP para a consulta
+Nome        | Tipo                 | Requerido | Descrição
+----------- | -------------------- |:---------:| ------------
+cep         | `string`             | sim       | Número para a consulta
 
 
 ## License
