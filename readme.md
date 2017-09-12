@@ -1,6 +1,5 @@
 # CEP API Koa
 
-[![NPM version][npm-img]][npm]
 [![Build Status][ci-img]][ci]
 [![Coverage Status][coveralls-img]][coveralls]
 [![Dependency Status][dep-img]][dep]
