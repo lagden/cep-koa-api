@@ -71,7 +71,7 @@ Exemplo: https://api-cep.herokuapp.com/cep/01310200
   "bairro": "Bela Vista",
   "cep": "01310200",
   "cidade": "São Paulo",
-  "complemento": ",
+  "complemento": "",
   "complemento2": "- de 1512 a 2132 - lado par",
   "end": "Avenida Paulista",
   "id": "0",
