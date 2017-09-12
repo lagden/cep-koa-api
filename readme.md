@@ -28,9 +28,11 @@ Você pode utilizar com GraphQL ou REST
 
 ---
 
-> [POST] /gql
+`[POST] /gql`
 
-### query
+Exemplo: https://api-cep.herokuapp.com/gql
+
+**query**
 
 ```graphql
 {
@@ -58,7 +60,7 @@ Você pode utilizar com GraphQL ou REST
 
 ---
 
-> [GET] /cep/:cep
+`[GET] /cep/:cep`
 
 Exemplo: https://api-cep.herokuapp.com/cep/01310200
 
@@ -66,16 +68,16 @@ Exemplo: https://api-cep.herokuapp.com/cep/01310200
 
 ```json
 {
-  bairro: 'Bela Vista',
-  cep: '01310200',
-  cidade: 'São Paulo',
-  complemento: '',
-  complemento2: '- de 1512 a 2132 - lado par',
-  end: 'Avenida Paulista',
-  id: '0',
-  uf: 'SP',
-  success: true,
-  status: 200
+  "bairro": "Bela Vista",
+  "cep": "01310200",
+  "cidade": "São Paulo",
+  "complemento": ",
+  "complemento2": "- de 1512 a 2132 - lado par",
+  "end": "Avenida Paulista",
+  "id": "0",
+  "uf": "SP",
+  "success": true,
+  "status": 200
 }
 ```
 
@@ -87,9 +89,9 @@ As reposta de erro são os mesmos para o **GraphQL** e **REST**
 
 ```json
 {
-  data: null,
-  errors: [{
-    message: 'body parse error'
+  "data": null,
+  "errors": [{
+    "message": "body parse error"
   }]
 }
 ```
@@ -98,9 +100,9 @@ As reposta de erro são os mesmos para o **GraphQL** e **REST**
 
 ```json
 {
-  data: null,
-  errors: [{
-    message: 'CEP não encontrado'
+  "data": null,
+  "errors": [{
+    "message": "CEP não encontrado"
   }]
 }
 ```
@@ -109,9 +111,9 @@ As reposta de erro são os mesmos para o **GraphQL** e **REST**
 
 ```json
 {
-  data: null,
-  errors: [{
-    message: 'CEP deve conter 8 dígitos'
+  "data": null,
+  "errors": [{
+    "message": "CEP deve conter 8 dígitos"
   }]
 }
 ```
