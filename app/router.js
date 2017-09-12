@@ -2,11 +2,14 @@
 
 const consulta = require('lagden-cep')
 const Router = require('koa-router')
-const {cleanup} = require('./lib/common')
 const debug = require('./lib/debug')
-const redis = require('./redis')
+const db = require('./lib/db')
 
 const router = new Router()
+
+function _cleanup(cep) {
+	return cep.replace(/[^\d]/g, '')
+}
 
 function home(ctx, next) {
 	ctx.body = {
@@ -15,24 +18,31 @@ function home(ctx, next) {
 	return next()
 }
 
-async function find(ctx, next) {
-	const cep = cleanup(ctx.params.cep)
+async function findDB(cep) {
 	try {
-		const cached = await redis.get(cep)
-		if (cached) {
-			const r = JSON.parse(cached)
+		const cache = await db.get(cep)
+		return JSON.parse(cache.toString())
+	} catch (err) {
+		debug.error(`findDB: ${err.message}`)
+		return false
+	}
+}
+
+async function find(ctx, next) {
+	const cep = _cleanup(ctx.params.cep)
+	try {
+		const cache = await findDB(cep)
+		if (cache) {
 			ctx.status = 200
-			ctx.body = r
+			ctx.body = cache
 			return next()
 		}
-
 		const correios = await consulta(cep)
-		redis.set(cep, JSON.stringify(correios))
+		await db.put(cep, JSON.stringify(correios))
 		ctx.status = 200
 		ctx.body = correios
 		return next()
 	} catch (err) {
-		debug.error('find', cep)
 		ctx.throw(err.status, err.message)
 	}
 }

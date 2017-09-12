@@ -2,8 +2,9 @@
 
 const debug = require('debug')
 
-const log = debug('cep-api:log')
-const error = debug('cep-api:error')
+const PREFIX = 'cep-api'
+const log = debug(`${PREFIX}:log`)
+const error = debug(`${PREFIX}:error`)
 
 log.log = console.log.bind(console)
 

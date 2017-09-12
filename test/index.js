@@ -1,11 +1,8 @@
 'use strict'
 
 import test from 'ava'
-import request from 'supertest'
-import app from '../app'
-import redis from '../app/redis'
-
-const koa = request.agent(app.listen(3009))
+import db from '../app/lib/db'
+import koa from './helpers/server'
 
 test('home', async t => {
 	const r = await koa.get('/')
@@ -13,9 +10,9 @@ test('home', async t => {
 	t.is(r.body.usage, '/cep/04080012')
 })
 
-test('consulta + redis', async t => {
-	// remove do redis
-	redis.del('01310200')
+test('consulta + cached', async t => {
+	// Remove
+	await db.del('01310200')
 
 	// Consulta
 	const c = await koa.get('/cep/01310200')
@@ -23,7 +20,7 @@ test('consulta + redis', async t => {
 	t.true(c.body.success)
 	t.is(c.body.end, 'Avenida Paulista')
 
-	// Redis
+	// Cache
 	const r = await koa.get('/cep/01310200')
 	t.is(r.status, 200)
 	t.true(r.body.success)
@@ -39,14 +36,14 @@ test('dash', async t => {
 
 test('not found', async t => {
 	const r = await koa.get('/cep/00000-000')
+	const [{message}] = r.body.errors
 	t.is(r.status, 404)
-	t.false(r.body.success)
-	t.is(r.body.message, 'CEP não encontrado')
+	t.is(message, 'CEP não encontrado')
 })
 
 test('invalid', async t => {
 	const r = await koa.get('/cep/1234567')
+	const [{message}] = r.body.errors
 	t.is(r.status, 400)
-	t.false(r.body.success)
-	t.is(r.body.message, 'CEP deve conter 8 dígitos')
+	t.is(message, 'CEP deve conter 8 dígitos')
 })

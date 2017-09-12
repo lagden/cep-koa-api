@@ -1,8 +1,8 @@
 {
   "name": "cep-koa-api",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "repository": "lagden/cep-koa-api",
-  "description": "Encontre os endereços através de busca por CEP",
+  "description": "Encontre os endereços através do CEP",
   "keywords": [
     "cep",
     "busca",
@@ -13,22 +13,19 @@
     "node": "7.10.0"
   },
   "dependencies": {
-    "debug": "2.6.8",
-    "got": "7.0.0",
-    "ioredis": "3.1.1",
-    "kcors": "2.2.1",
-    "koa": "2.2.0",
-    "koa-compress": "2.0.0",
-    "koa-conditional-get": "2.0.0",
-    "koa-etag": "3.0.0",
-    "koa-response-time": "2.0.0",
-    "koa-router": "7.2.0",
-    "lagden-cep": "1.1.1"
+    "debug": "3.0.1",
+    "got": "7.1.0",
+    "koa-app-base": "1.0.1",
+    "koa-router": "7.2.1",
+    "lagden-cep": "1.2.0",
+    "leveldown": "1.7.2",
+    "levelup": "2.0.0-rc2"
   },
   "devDependencies": {
-    "ava": "0.19.1",
+    "ava": "0.22.0",
     "coveralls": "2.13.1",
-    "nyc": "11.0.2",
+    "hash-to-port": "1.0.0",
+    "nyc": "11.2.1",
     "supertest": "3.0.0",
     "xo": "0.18.2"
   },
@@ -37,7 +34,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
     "test": "NODE_ENV=test nyc ava --serial",
-    "start": "NODE_ENV=develop DEBUG=cep-api:* node index.js"
+    "start": "NODE_ENV=dev DEBUG=cep-api:* node index.js"
   },
   "xo": {
     "envs": [

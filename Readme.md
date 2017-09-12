@@ -13,24 +13,68 @@
 [dep]:           https://david-dm.org/lagden/cep-koa-api
 [devDep-img]:    https://david-dm.org/lagden/cep-koa-api/dev-status.svg
 [devDep]:        https://david-dm.org/lagden/cep-koa-api#info=devDependencies
+[xo-img]:        https://img.shields.io/badge/code_style-XO-5ed9c7.svg
+[xo]:            https://github.com/sindresorhus/xo
 
-Encontre os endereços através de busca por CEP
+Encontre os endereços através do CEP
+
+
+## Endpoint
+
+https://api-cep.herokuapp.com
 
 
 ## Uso
 
-Faça um request para:
+[GET] /cep/:cep
 
-`/cep/01310200` or `/cep/01310-200`
+Exemplo: https://api-cep.herokuapp.com/cep/01310200
 
+### Response 200
 
-### API
+```json
+{
+  bairro: 'Bela Vista',
+  cep: '01310200',
+  cidade: 'São Paulo',
+  complemento: '',
+  complemento2: '- de 1512 a 2132 - lado par',
+  end: 'Avenida Paulista',
+  id: '0',
+  uf: 'SP',
+  success: true,
+  status: 200
+}
 
-#### `GET` /cep/:cep
+---
 
-Nome        | Tipo                 | Requerido | Descrição
------------ | -------------------- |:---------:| ------------
-cep         | `string`             | sim       | Número para a consulta
+Exemplo: https://api-cep.herokuapp.com/cep/00000000
+
+### Response 404
+
+```json
+{
+  data: null,
+  errors: [{
+    message: 'CEP não encontrado'
+  }]
+}
+```
+
+---
+
+Exemplo: https://api-cep.herokuapp.com/cep/1234567
+
+### Response 400
+
+```json
+{
+  data: null,
+  errors: [{
+    message: 'CEP deve conter 8 dígitos'
+  }]
+}
+```
 
 
 ## License

@@ -10,7 +10,6 @@ http
 	.createServer(app.callback())
 	.listen(port, () => {
 		debug.log(`on ${port}`)
-		// Avoid Idling
 		setInterval(() => {
 			got('https://api-cep.herokuapp.com/cep/09771001')
 				.then(response => {
