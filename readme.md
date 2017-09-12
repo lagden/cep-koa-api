@@ -24,7 +24,7 @@ https://api-cep.herokuapp.com
 
 ## Uso
 
-Você pode utilizar com GraphQL ou REST
+Você pode utilizar o **GraphQL** ou **REST**
 
 ---
 
@@ -83,7 +83,7 @@ Exemplo: https://api-cep.herokuapp.com/cep/01310200
 
 ---
 
-As reposta de erro são os mesmos para o **GraphQL** e **REST**
+As repostas de erro são as mesmas para o **GraphQL** e **REST**
 
 #### Response 422
 
