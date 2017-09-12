@@ -2,9 +2,6 @@
 
 [![Build Status][ci-img]][ci]
 [![Coverage Status][coveralls-img]][coveralls]
-[![Dependency Status][dep-img]][dep]
-[![devDependency Status][devDep-img]][devDep]
-
 [![XO code style][xo-img]][xo]
 [![Greenkeeper badge][greenkeeper-img]][greenkeeper]
 
@@ -12,10 +9,6 @@
 [ci]:              https://travis-ci.org/lagden/cep-koa-api
 [coveralls-img]:   https://coveralls.io/repos/github/lagden/cep-koa-api/badge.svg?branch=master
 [coveralls]:       https://coveralls.io/github/lagden/cep-koa-api?branch=master
-[dep-img]:         https://david-dm.org/lagden/cep-koa-api.svg
-[dep]:             https://david-dm.org/lagden/cep-koa-api
-[devDep-img]:      https://david-dm.org/lagden/cep-koa-api/dev-status.svg
-[devDep]:          https://david-dm.org/lagden/cep-koa-api#info=devDependencies
 [xo-img]:          https://img.shields.io/badge/code_style-XO-5ed9c7.svg
 [xo]:              https://github.com/sindresorhus/xo
 [greenkeeper-img]: https://badges.greenkeeper.io/lagden/koa-error.svg
@@ -35,7 +28,7 @@ Você pode utilizar com GraphQL ou REST
 
 ---
 
-[POST] /gql
+> [POST] /gql
 
 ### query
 
@@ -46,7 +39,8 @@ Você pode utilizar com GraphQL ou REST
     cidade
     uf
   }
-}`
+}
+```
 
 #### Response 200
 
@@ -60,10 +54,11 @@ Você pode utilizar com GraphQL ou REST
     }
   }
 }
+```
 
 ---
 
-[GET] /cep/:cep
+> [GET] /cep/:cep
 
 Exemplo: https://api-cep.herokuapp.com/cep/01310200
 
@@ -82,10 +77,22 @@ Exemplo: https://api-cep.herokuapp.com/cep/01310200
   success: true,
   status: 200
 }
+```
 
 ---
 
-Exemplo: https://api-cep.herokuapp.com/cep/00000000
+As reposta de erro são os mesmos para o **GraphQL** e **REST**
+
+#### Response 422
+
+```json
+{
+  data: null,
+  errors: [{
+    message: 'body parse error'
+  }]
+}
+```
 
 #### Response 404
 
@@ -97,10 +104,6 @@ Exemplo: https://api-cep.herokuapp.com/cep/00000000
   }]
 }
 ```
-
----
-
-Exemplo: https://api-cep.herokuapp.com/cep/1234567
 
 #### Response 400
 
