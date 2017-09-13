@@ -16,14 +16,11 @@
     "debug": "3.0.1",
     "got": "7.1.0",
     "graphql": "0.11.3",
-    "hyperdb": "1.2.0-rc1",
+    "ioredis": "3.1.4",
     "koa-app-base": "1.0.1",
     "koa-bodyparser": "4.2.0",
     "koa-router": "7.2.1",
-    "lagden-cep": "1.2.0",
-    "level": "2.0.0-rc2",
-    "mkdirp": "0.5.1",
-    "pify": "3.0.0"
+    "lagden-cep": "1.2.0"
   },
   "devDependencies": {
     "ava": "0.22.0",
@@ -37,7 +34,7 @@
     "report": "nyc report --reporter=html",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
-    "test": "NODE_ENV=testi nyc ava",
+    "test": "NODE_ENV=test RPASS=surftrip nyc ava",
     "start": "NODE_ENV=dev DEBUG=cep-api:* node index.js"
   },
   "xo": {

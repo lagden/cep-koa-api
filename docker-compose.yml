@@ -1,19 +1,36 @@
 version: '3'
 services:
+
   consulta_cep:
     container_name: prod
-    image: lagden/cep_consulta:3.1.1
+    image: lagden/cep_consulta:4.0.0
     command: node index.js
     environment:
       DEBUG: cep-api:*
       NODE_ENV: production
       PORT: 3000
+      RPORT: 6379
+      RHOST: redis
     ports:
       - 3001:3000
     volumes:
-      - db-data:/home/node/consulta-cep/data
+      - ./app:/home/node/consulta-cep/app
+    networks:
+      - app-tier
+
+  redis:
+    image: redis:alpine
+    ports: 
+      - 6379:6379
+    volumes:
+      - db-data:/data
+    networks:
+      - app-tier
 
 volumes:
   db-data:
+
+networks:
+  app-tier:
 
 # docker-compose up --build -d

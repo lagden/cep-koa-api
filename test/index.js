@@ -1,6 +1,7 @@
 'use strict'
 
 import test from 'ava'
+import db from '../app/lib/db'
 import koa from './helpers/server'
 
 function _query(cep) {
@@ -21,6 +22,8 @@ test('home', async t => {
 })
 
 test('consulta + cached', async t => {
+	await db.del('01310200')
+
 	// Consulta
 	const c = await koa.get('/cep/01310200')
 	t.is(c.status, 200)

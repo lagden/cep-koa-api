@@ -4,38 +4,20 @@ const consulta = require('lagden-cep')
 const debug = require('./debug')
 const db = require('./db')
 
-const _get = k => new Promise((resolve, reject) => {
-	db.get(k, (err, nodes) => {
-		if (err) {
-			reject(err)
-		} else {
-			resolve(nodes)
-		}
-	})
-})
-
-const _put = (k, v) => new Promise((resolve, reject) => {
-	db.put(k, v, err => {
-		if (err) {
-			reject(err)
-		} else {
-			resolve()
-		}
-	})
-})
-
 function _cleanup(cep) {
 	return cep.replace(/[^\d]/g, '')
 }
 
 async function _findDB(cep) {
 	try {
-		const [{value}] = await _get(cep)
-		return JSON.parse(value)
+		const value = await db.get(cep)
+		if (value) {
+			return JSON.parse(value)
+		}
 	} catch (err) {
-		debug.error(`findDB: ${err.message}`)
-		return false
+		debug.error(`_findDB: ${err.message}`)
 	}
+	return false
 }
 
 async function find(_cep) {
@@ -45,9 +27,9 @@ async function find(_cep) {
 		if (cache) {
 			return cache
 		}
-		const correios = await consulta(cep)
-		await _put(cep, JSON.stringify(correios))
-		return correios
+		const value = await consulta(cep)
+		await db.set(cep, JSON.stringify(value))
+		return value
 	} catch (err) {
 		throw err
 	}

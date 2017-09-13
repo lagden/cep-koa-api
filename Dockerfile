@@ -1,4 +1,4 @@
-FROM node:8.5.0
+FROM node:8.5.0-alpine
 MAINTAINER Thiago Lagden <docker@lagden.in>
 
 # variáveis de ambiente
@@ -16,10 +16,10 @@ RUN chown -R node:node $HOME
 # troca de usuário (node) e instala os pacotes
 USER node
 WORKDIR $APP
-RUN npm i --silent --build-from-source --progress=false --production
+RUN npm i --silent --progress=false --production
 
 # libera a porta e roda o comando
 EXPOSE $PORT
 CMD ["node", "index.js"]
 
-# docker exec -it cepkoa_consulta_cep bash
+# docker exec -it {container_name} ash
