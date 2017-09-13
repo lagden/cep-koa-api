@@ -5,15 +5,16 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: npm start
+    command: node index.js
     environment:
+      DEBUG: cep-api:*
       NODE_ENV: dev
       PORT: 3000
     ports:
       - 3001:3000
     volumes:
-      - ./app:/home/tex/consulta-cep/app
-      - db-data:/home/tex/consulta-cep/data
+      - ./app:/home/node/consulta-cep/app
+      - db-data:/home/node/consulta-cep/data
 
 volumes:
   db-data:

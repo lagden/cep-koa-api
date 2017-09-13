@@ -1,7 +1,7 @@
 version: '3'
 services:
   consulta_cep:
-    container_name: cep_consulta
+    container_name: prod
     image: lagden/cep_consulta:3.1.1
     command: node index.js
     environment:
@@ -11,7 +11,7 @@ services:
     ports:
       - 3001:3000
     volumes:
-      - db-data:/home/tex/consulta-cep/data
+      - db-data:/home/node/consulta-cep/data
 
 volumes:
   db-data:
