@@ -21,7 +21,8 @@
     "koa-router": "7.2.1",
     "lagden-cep": "1.2.0",
     "leveldown": "1.7.2",
-    "levelup": "2.0.0-rc2"
+    "levelup": "2.0.0-rc2",
+    "mkdirp": "0.5.1"
   },
   "devDependencies": {
     "ava": "0.22.0",
@@ -52,10 +53,6 @@
       ],
       "capitalized-comments": 0
     }
-  },
-  "ava": {
-    "concurrency": 2,
-    "timeout": "30s"
   },
   "main": "index.js",
   "files": [

@@ -1,5 +1,20 @@
-# Database
+.git
+.DS_Store
+.gitattributes
+LICENSE
+Procfile
+.travis.yml
+bin
 data/*.db
+test
+.dockerignore
+.editorconfig
+.gitignore
+.rsync*
+Dockerfile
+docker-compose*.yml
+package-lock.json
+readme.md
 
 # Logs
 logs
@@ -32,15 +47,15 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (https://nodejs.org/api/addons.html)
+# Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directories
-node_modules/
-jspm_packages/
+node_modules/*
+jspm_packages/*
 
 # Typescript v1 declaration files
-typings/
+typings/*
 
 # Optional npm cache directory
 .npm

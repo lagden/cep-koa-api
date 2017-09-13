@@ -1,0 +1,19 @@
+version: '3'
+services:
+  consulta_cep:
+    container_name: cep_consulta
+    image: lagden/cep_consulta:3.1.0
+    command: node index.js
+    environment:
+      DEBUG: cep-api:*
+      NODE_ENV: production
+      PORT: 3000
+    ports:
+      - 3001:3000
+    volumes:
+      - db-data:/home/tex/consulta-cep/data
+
+volumes:
+  db-data:
+
+# docker-compose up --build -d

@@ -1,0 +1,21 @@
+version: '3'
+services:
+  consulta_cep:
+    container_name: dev
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: npm start
+    environment:
+      NODE_ENV: dev
+      PORT: 3000
+    ports:
+      - 3001:3000
+    volumes:
+      - ./app:/home/tex/consulta-cep/app
+      - db-data:/home/tex/consulta-cep/data
+
+volumes:
+  db-data:
+
+# docker-compose -f docker-compose.dev.yml up --build -d
