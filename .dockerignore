@@ -11,7 +11,7 @@ test
 .editorconfig
 .gitignore
 .rsync*
-Dockerfile
+Dockerfile*
 docker-compose*.yml
 package-lock.json
 readme.md
