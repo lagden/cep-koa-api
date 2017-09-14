@@ -13,8 +13,6 @@ services:
       RHOST: redis
     ports:
       - 3001:3000
-    volumes:
-      - ./app:/home/node/consulta-cep/app
     networks:
       - app-tier
 
