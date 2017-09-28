@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "ava": "0.22.0",
-    "coveralls": "2.13.1",
+    "coveralls": "2.13.2",
     "hash-to-port": "1.0.0",
     "nyc": "11.2.1",
     "supertest": "3.0.0",
