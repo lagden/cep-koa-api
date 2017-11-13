@@ -19,7 +19,7 @@
     "ioredis": "3.2.0",
     "koa-app-base": "1.1.0",
     "koa-bodyparser": "4.2.0",
-    "koa-router": "7.2.1",
+    "koa-router": "7.3.0",
     "lagden-cep": "1.2.0"
   },
   "devDependencies": {
