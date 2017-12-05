@@ -14,6 +14,7 @@
 [greenkeeper-img]: https://badges.greenkeeper.io/lagden/koa-error.svg
 [greenkeeper]:     https://greenkeeper.io/
 
+
 Encontre os endereços através do CEP
 
 
@@ -21,11 +22,8 @@ Encontre os endereços através do CEP
 
 Você pode utilizar o **GraphQL** ou **REST**
 
----
 
 `[POST] /gql`
-
-Exemplo: https://api-cep.herokuapp.com/gql
 
 **query**
 
@@ -57,8 +55,6 @@ Exemplo: https://api-cep.herokuapp.com/gql
 
 `[GET] /cep/:cep`
 
-Exemplo: https://api-cep.herokuapp.com/cep/01310200
-
 #### Response 200
 
 ```json
@@ -84,7 +80,6 @@ As repostas de erro são as mesmas para o **GraphQL** e **REST**
 
 ```json
 {
-  "data": null,
   "errors": [{
     "message": "body parse error"
   }]
@@ -95,7 +90,6 @@ As repostas de erro são as mesmas para o **GraphQL** e **REST**
 
 ```json
 {
-  "data": null,
   "errors": [{
     "message": "CEP não encontrado"
   }]
@@ -106,7 +100,6 @@ As repostas de erro são as mesmas para o **GraphQL** e **REST**
 
 ```json
 {
-  "data": null,
   "errors": [{
     "message": "CEP deve conter 8 dígitos"
   }]
