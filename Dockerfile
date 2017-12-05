@@ -1,25 +1,19 @@
-FROM node:8.5.0-alpine
-MAINTAINER Thiago Lagden <docker@lagden.in>
+FROM node:8.9.1-alpine
+LABEL maintainer="docker@lagden.in"
 
-# variáveis de ambiente
-ENV DEBUG=cep-api:*
-ENV NODE_ENV=production
-ENV PORT=3000
+ARG npm_cmd="npm i --progress=false --quiet --production"
+ARG port=3000
+
+ENV PORT=$port
 ENV HOME=/home/node
-ENV APP=$HOME/consulta-cep
+ENV APP=$HOME/app
 
-# cria a pasta do app, copia os arquivos e ajusta as permissões
 RUN mkdir $APP
 COPY . $APP
 RUN chown -R node:node $HOME
 
-# troca de usuário (node) e instala os pacotes
 USER node
 WORKDIR $APP
-RUN npm i --silent --progress=false --production
+RUN $npm_cmd
 
-# libera a porta e roda o comando
-EXPOSE $PORT
-CMD ["node", "index.js"]
-
-# docker exec -it {container_name} ash
+EXPOSE $port

@@ -1,20 +1,19 @@
 version: '3'
 services:
-  dev:
+  test:
     build:
       context: ./
       args:
-        port: ${PORT}
-    command: ["npm", "start"]
+        npm_cmd: "npm i --progress=false --quiet"
+    command: ["npm", "test"]
     environment:
-      - DEBUG=${PREFIX_DEBUG}:*
-      - NODE_ENV=dev
+      - NODE_ENV=test
       - RHOST=redis
-    ports:
-      - 1235:${PORT}
     volumes:
       - ./:/home/node/app
       - node_modules:/home/node/app/node_modules
+    networks:
+      - redis-net
     depends_on:
       - redis
 
@@ -30,5 +29,8 @@ networks:
 volumes:
   node_modules:
 
+## to run
+# docker-compose -f docker-compose.test.yml run test
+
 ## to build
-# docker-compose -f docker-compose.dev.yml up --build -d
+# docker-compose -f docker-compose.test.yml up --build -d

@@ -1,4 +1,4 @@
-# CEP API Koa
+# CEP API
 
 [![Build Status][ci-img]][ci]
 [![Coverage Status][coveralls-img]][coveralls]
@@ -15,11 +15,6 @@
 [greenkeeper]:     https://greenkeeper.io/
 
 Encontre os endereços através do CEP
-
-
-## Endpoint
-
-https://api-cep.herokuapp.com
 
 
 ## Uso

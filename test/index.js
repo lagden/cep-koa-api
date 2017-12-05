@@ -1,19 +1,28 @@
 'use strict'
 
 import test from 'ava'
-import db from '../app/lib/db'
+import Cache from '../app/lib/cache'
 import koa from './helpers/server'
 
-function _query(cep) {
-	return `
-{
-  consulta(cep: "${cep}") {
+const query = `
+query Consulta($cep: String!) {
+  consulta(cep: $cep) {
     endereco: end
     cidade
     uf
   }
 }`
+
+async function _cleanup() {
+	const _cache = new Cache({
+		keyPrefix: 'cepkoa',
+		namespace: 'api'
+	})
+	await _cache.clear()
 }
+
+test.before(_cleanup)
+test.after(_cleanup)
 
 test('home', async t => {
 	const r = await koa.get('/')
@@ -21,16 +30,12 @@ test('home', async t => {
 	t.is(r.body.usage, '/cep/04080012')
 })
 
-test('consulta + cached', async t => {
-	await db.del('01310200')
-
-	// Consulta
+test('consulta + cache', async t => {
 	const c = await koa.get('/cep/01310200')
 	t.is(c.status, 200)
 	t.true(c.body.success)
 	t.is(c.body.end, 'Avenida Paulista')
 
-	// Cache
 	const r = await koa.get('/cep/01310200')
 	t.is(r.status, 200)
 	t.true(r.body.success)
@@ -69,23 +74,39 @@ test('bodyparser', async t => {
 })
 
 test('gql', async t => {
-	const query = _query('04653055')
+	const data = Object.create(null)
+	data.query = query
+	data.variables = {cep: '04653055'}
+	data.operationName = 'Consulta'
 	const r = await koa
 		.post('/gql')
 		.set('content-type', 'application/json')
-		.send({query})
+		.send(data)
 	const {endereco} = r.body.data.consulta
 	t.is(r.status, 200)
 	t.is(endereco, 'Rua Amália Cerelo Godespoti')
 })
 
 test('gql 404', async t => {
-	const query = _query('00000000')
+	const data = Object.create(null)
+	data.query = query
+	data.variables = {cep: '00000000'}
+	data.operationName = 'Consulta'
 	const r = await koa
 		.post('/gql')
 		.set('content-type', 'application/json')
-		.send({query})
+		.send(data)
 	const [{message}] = r.body.errors
 	t.is(r.status, 404)
 	t.is(message, 'CEP não encontrado')
+})
+
+test('gql 500', async t => {
+	const r = await koa
+		.post('/gql')
+		.set('content-type', 'application/json')
+		.send({})
+	const [{message}] = r.body.errors
+	t.is(r.status, 500)
+	t.is(message, 'Must provide Source. Received: undefined')
 })

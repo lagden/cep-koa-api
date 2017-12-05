@@ -1,51 +1,43 @@
 'use strict'
 
-const EventEmitter = require('events')
 const JSONB = require('json-buffer')
 const redis = require('./redis')
 
-class Cache extends EventEmitter {
+class Cache {
 	constructor(opts = {}) {
-		super()
-		this.ttlSupport = true
-		this.namespace = `namespace:_${opts.keyPrefix || 'cache'}`
+		this.namespace = `namespace:${opts.namespace || 'cache'}`
 		this.redis = redis(opts)
-		this.redis.on('error', err => this.emit('error', err))
 	}
 
 	get(key) {
 		return this.redis.get(key)
 			.then(value => {
-				if (value === null) {
+				value = JSONB.parse(value)
+				if (value === undefined || value === null) {
 					return undefined
 				}
-				return JSONB.parse(value)
+				return value
 			})
 	}
 
-	set(key, value, ttl) {
-		value = JSONB.stringify(value)
-
+	set(key, value, ttl = null) {
 		if (typeof value === 'undefined') {
 			return Promise.resolve(undefined)
 		}
-
-		return Promise.resolve()
-			.then(() => {
-				if (typeof ttl === 'number') {
-					return this.redis.set(key, value, 'PX', ttl)
-				}
-				return this.redis.set(key, value)
-			})
+		let args = [key, JSONB.stringify(value)]
+		if (typeof ttl === 'number') {
+			args = [...args, 'PX', ttl]
+		}
+		return this.redis.set(...args)
 			.then(() => this.redis.sadd(this.namespace, key))
 	}
 
 	delete(key) {
-		return this.redis.del(key)
-			.then(items => {
-				return this.redis.srem(this.namespace, key)
-					.then(() => items > 0)
-			})
+		return Promise.all([
+			this.redis.del(key),
+			this.redis.srem(this.namespace, key)
+		])
+		.then(([item]) => Boolean(item))
 	}
 
 	clear() {

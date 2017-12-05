@@ -1,35 +1,27 @@
 'use strict'
 
-const consulta = require('lagden-cep')
-const debug = require('./debug')
-const db = require('./db')
+const consulta = require('@tadashi/cep')
+const Cache = require('./cache')
+
+const _cache = new Cache({
+	keyPrefix: 'cepkoa',
+	namespace: 'api'
+})
 
 function _cleanup(cep) {
 	return cep.replace(/[^\d]/g, '')
 }
 
-async function _findDB(cep) {
-	try {
-		const value = await db.get(cep)
-		if (value) {
-			return JSON.parse(value)
-		}
-	} catch (err) {
-		debug.error(`_findDB: ${err.message}`)
-	}
-	return false
-}
-
 async function find(_cep) {
 	const cep = _cleanup(_cep)
 	try {
-		const cache = await _findDB(cep)
+		const cache = await _cache.get(cep)
 		if (cache) {
 			return cache
 		}
-		const value = await consulta(cep)
-		await db.set(cep, JSON.stringify(value))
-		return value
+		const res = await consulta(cep)
+		await _cache.set(cep, res, 2592000000000)
+		return res
 	} catch (err) {
 		throw err
 	}

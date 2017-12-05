@@ -1,14 +1,11 @@
 'use strict'
 
+const debug = require('@tadashi/debug')
 const base = require('koa-app-base')
-const debug = require('./lib/debug')
-const router = require('./router')
+const routes = require('./routes')
 
-const app = base({errorHandler: {emit: true}})
-	.use(router.routes())
-	.use(router.allowedMethods({
-		throw: true
-	}))
+const app = base({error: {emit: true}})
+	.use(routes)
 	.on('error', debug.error)
 
 app.proxy = true

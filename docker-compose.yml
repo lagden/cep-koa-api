@@ -1,34 +1,33 @@
 version: '3'
 services:
-
-  consulta_cep:
-    container_name: prod
-    image: lagden/cep_consulta:4.0.0
-    command: node index.js
+  app:
+    image: lagden/cep_consulta:5.0.0
+    command: ["node", "index.js"]
     environment:
-      DEBUG: cep-api:*
-      NODE_ENV: production
-      PORT: 3000
-      RPORT: 6379
-      RHOST: redis
+      - DEBUG=${PREFIX_DEBUG}:error
+      - NODE_ENV=production
+      - RHOST=redis
     ports:
-      - 3001:3000
+      - 1235:${PORT}
     networks:
-      - app-tier
+      - redis-net
+    depends_on:
+      - redis
 
   redis:
-    image: redis:alpine
-    ports: 
-      - 6379:6379
-    volumes:
-      - db-data:/data
+    image: redis:4.0.5-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+    restart: always
     networks:
-      - app-tier
-
-volumes:
-  db-data:
+      - redis-net
+    volumes:
+      - redis-data:/data
 
 networks:
-  app-tier:
+  redis-net:
+
+volumes:
+  redis-data:
 
 # docker-compose up --build -d

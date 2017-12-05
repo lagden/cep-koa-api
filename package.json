@@ -10,32 +10,14 @@
     "koa2"
   ],
   "engines": {
-    "node": "8.5.0"
-  },
-  "dependencies": {
-    "debug": "3.0.1",
-    "got": "7.1.0",
-    "graphql": "0.11.3",
-    "ioredis": "3.1.4",
-    "koa-app-base": "1.0.1",
-    "koa-bodyparser": "4.2.0",
-    "koa-router": "7.2.1",
-    "lagden-cep": "1.2.0"
-  },
-  "devDependencies": {
-    "ava": "0.22.0",
-    "coveralls": "2.13.1",
-    "hash-to-port": "1.0.0",
-    "nyc": "11.2.1",
-    "supertest": "3.0.0",
-    "xo": "0.18.2"
+    "node": "8.9.1"
   },
   "scripts": {
     "report": "nyc report --reporter=html",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
-    "test": "NODE_ENV=test RPASS=surftrip nyc ava",
-    "start": "NODE_ENV=dev DEBUG=cep-api:* node index.js"
+    "test": "nyc ava",
+    "start": "nodemon index.js"
   },
   "xo": {
     "envs": [
@@ -58,5 +40,26 @@
     "LICENSE",
     "readme.md"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@tadashi/cep": "1.0.0",
+    "@tadashi/debug": "1.1.0",
+    "globby": "7.1.1",
+    "graphql": "0.11.7",
+    "ioredis": "3.2.2",
+    "json-buffer": "3.0.0",
+    "koa-app-base": "2.0.0",
+    "koa-bodyparser": "4.2.0",
+    "koa-compose": "4.0.0",
+    "koa-router": "7.3.0"
+  },
+  "devDependencies": {
+    "ava": "0.24.0",
+    "coveralls": "3.0.0",
+    "hash-to-port": "1.0.0",
+    "nodemon": "1.12.2",
+    "nyc": "11.3.0",
+    "supertest": "3.0.0",
+    "xo": "0.18.2"
+  }
 }

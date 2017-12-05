@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+cd $DIR
+cd ..
+
+docker-compose -f docker-compose.dev.yml down --volumes
+if test $? -ne 0; then
+	printf "${RED}Docker Compose Failed${NC}\n"
+	exit -1
+fi
+
+exit 0

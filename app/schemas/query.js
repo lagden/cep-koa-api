@@ -1,7 +1,7 @@
 'use strict'
 
-const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLBoolean, GraphQLNonNull, GraphQLInt} = require('graphql')
-const find = require('./lib/find')
+const {GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLNonNull, GraphQLInt} = require('graphql')
+const find = require('../lib/find')
 
 const dados = new GraphQLObjectType({
 	name: 'dados',
@@ -35,7 +35,7 @@ const Query = new GraphQLObjectType({
 					const dados = await find(cep)
 					return dados
 				} catch (err) {
-					ctx.status = err.status
+					ctx.state.status = err.status
 					throw err
 				}
 			}
@@ -43,8 +43,4 @@ const Query = new GraphQLObjectType({
 	}
 })
 
-const schema = new GraphQLSchema({
-	query: Query
-})
-
-module.exports = schema
+module.exports = Query

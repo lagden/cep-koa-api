@@ -2,5 +2,5 @@ services:
   - redis-server
 language: node_js
 node_js:
-  - "8.4"
+  - "8.9"
 after_script: npm run coverage

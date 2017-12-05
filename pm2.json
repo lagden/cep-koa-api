@@ -1,0 +1,16 @@
+{
+  "apps": [{
+    "name": "micro-cep-v1",
+    "script": "index.js",
+    "max_memory_restart" : "65M",
+    "exec_mode": "fork",
+    "env": {
+      "PREFIX_DEBUG": "cep",
+      "DEBUG": "cep:error",
+      "NODE_ENV": "production",
+      "PORT": "3017",
+      "RPORT": 6379,
+      "RDB": 1
+    }
+  }]
+}
