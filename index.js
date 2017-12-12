@@ -1,12 +1,10 @@
 'use strict'
 
-const http = require('http')
-const debug = require('@tadashi/debug')
+const debug = require('@tadashi/debug')('cep-api')
 const app = require('./app/.')
 
 const {PORT = 3000} = process.env
 
-const server = http.createServer(app.callback())
-server.listen(PORT, () => {
-	debug.log(`Server listening on port ${server.address().port}`)
+app.listen(PORT, () => {
+	debug.log(`Server listening on port ${PORT}`)
 })

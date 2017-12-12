@@ -4,7 +4,7 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 cd $DIR
 cd ..
 
-docker-compose -f docker-compose.dev.yml up -d --build
+docker-compose up -d dev redis
 if test $? -ne 0; then
 	printf "${RED}Docker Compose Failed${NC}\n"
 	exit -1

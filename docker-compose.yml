@@ -1,14 +1,22 @@
-version: '3'
+version: '3.4'
 services:
-  app:
-    image: lagden/cep_consulta:5.0.0
-    command: ["node", "index.js"]
+  dev:
+    build:
+      context: ./
+      args:
+        port: ${PORT}
+        npm_cmd: "npm i --progress=false --quiet"
+    image: cepkoa:dev
+    command: ["npm", "start"]
     environment:
-      - DEBUG=${PREFIX_DEBUG}:error
-      - NODE_ENV=production
+      - DEBUG=${PREFIX_DEBUG}:*
+      - NODE_ENV=dev
       - RHOST=redis
     ports:
       - 1235:${PORT}
+    volumes:
+      - ./:/home/node/app
+      - node_modules:/home/node/app/node_modules
     networks:
       - redis-net
     depends_on:
@@ -16,18 +24,27 @@ services:
 
   redis:
     image: redis:4.0.5-alpine
-    command: ["redis-server", "--appendonly", "yes"]
     hostname: redis
-    restart: always
     networks:
       - redis-net
+
+  test:
+    image: cepkoa:dev
+    command: ["npm", "test"]
+    environment:
+      - NODE_ENV=test
+      - RHOST=redis
     volumes:
-      - redis-data:/data
+      - ./:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    networks:
+      - redis-net
+    depends_on:
+      - dev
+      - redis
 
 networks:
   redis-net:
 
 volumes:
-  redis-data:
-
-# docker-compose up --build -d
+  node_modules:

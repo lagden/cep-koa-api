@@ -1,26 +1,21 @@
 'use strict'
 
 const consulta = require('@tadashi/cep')
-const Cache = require('./cache')
-
-const _cache = new Cache({
-	keyPrefix: 'cepkoa',
-	namespace: 'api'
-})
+const cache = require('./cache')
 
 function _cleanup(cep) {
 	return cep.replace(/[^\d]/g, '')
 }
 
 async function find(_cep) {
-	const cep = _cleanup(_cep)
 	try {
-		const cache = await _cache.get(cep)
-		if (cache) {
-			return cache
+		const cep = _cleanup(_cep)
+		const fromCache = await cache.get(cep)
+		if (fromCache) {
+			return fromCache
 		}
 		const res = await consulta(cep)
-		await _cache.set(cep, res, 2592000000000)
+		await cache.set(cep, res)
 		return res
 	} catch (err) {
 		throw err

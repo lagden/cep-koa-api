@@ -7,15 +7,19 @@ cd ..
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
-NAMESPACE='cepapi'
-PREFIX="${NAMESPACE}ci"
+
+NAMESPACE='cepkoa'
 REBUILD=0
 
 _cleanup() {
-	docker-compose -f docker-compose.test.yml down --volumes > /dev/null 2>&1
+	docker-compose down --volumes > /dev/null 2>&1
 	docker stop $(docker ps --all --quiet) > /dev/null 2>&1
 	docker rm $(docker ps --all --quiet --filter="status=exited") > /dev/null 2>&1
-	docker rmi $(docker images -f dangling=true -q) > /dev/null 2>&1
+	docker rmi $(docker images -f "dangling=true" -q) > /dev/null 2>&1
+}
+
+_up() {
+	docker-compose -p $NAMESPACE up $1 -d dev redis
 }
 
 args=()
@@ -32,24 +36,19 @@ done
 
 trap '_cleanup; printf "${RED}Tests Failed For Unexpected Reasons${NC}\n"; exit 1' HUP INT QUIT PIPE TERM SIGINT SIGTERM
 
-if test $REBUILD == 1; then
-	docker rmi $(docker image ls ${PREFIX}_test\* -q -a) > /dev/null 2>&1
-fi
-
-docker-compose -f docker-compose.test.yml -p $PREFIX up -d
+test $REBUILD == 1 && _up '--build' || _up
 if test $? -ne 0; then
 	printf "${RED}Docker Compose Failed${NC}\n"
 	exit -1
 fi
 
-TEST_EXIT_CODE=`docker wait ${PREFIX}_test_1`
-EXIT_CODE=${TEST_EXIT_CODE:-default 1}
-docker logs "${PREFIX}_test_1"
+docker-compose -p ${NAMESPACE} up test
+TEST_EXIT_CODE=`docker inspect ${NAMESPACE}_test_1 --format='{{.State.ExitCode}}'`
 
-if test $EXIT_CODE -ne 0; then
-	printf "${RED}Tests Failed${NC}\n"
+if test $TEST_EXIT_CODE -ne 0; then
+	printf "${RED}Test FAIL${NC}\n"
 else
-	printf "${GREEN}Tests Passed${NC}\n"
+	printf "${GREEN}Test OK${NC}\n"
 fi
 
 _cleanup

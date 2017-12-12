@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('@tadashi/debug')
+const debug = require('@tadashi/debug')('cep-api')
 const base = require('koa-app-base')
 const routes = require('./routes')
 

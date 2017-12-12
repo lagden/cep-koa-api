@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('@tadashi/debug')
+const debug = require('@tadashi/debug')('cep-api')
 const KoaRouter = require('koa-router')
 const koaBodyParser = require('koa-bodyparser')
 const {graphql} = require('graphql')
