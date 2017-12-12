@@ -4,10 +4,13 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 cd $DIR
 cd ..
 
+abort() {
+	printf "\n  \033[31mError: $@\033[0m\n\n" && exit 1
+}
+
 docker-compose down --volumes
 if test $? -ne 0; then
-	printf "${RED}Docker Compose Failed${NC}\n"
-	exit -1
+	abort "Docker Compose Failed"
 fi
 
 exit 0
