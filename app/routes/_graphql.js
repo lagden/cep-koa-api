@@ -13,19 +13,17 @@ function onerror(err, ctx) {
 	ctx.throw(422, 'body parse error')
 }
 
-async function _graphql(ctx, next) {
+async function _graphql(ctx) {
 	try {
 		const {query, variables, operationName} = ctx.request.body
-		ctx.status = 200
 		const res = await graphql(schema, query, null, ctx, variables, operationName)
 		if (res && res.errors) {
-			ctx.status = ctx.state.status || 500
 			const [err] = res.errors
 			throw err
 		}
 		ctx.body = res
-		return next()
 	} catch (err) {
+		ctx.status = err.status || ctx.state.status || 500
 		ctx.throw(ctx.status, err.message)
 	}
 }

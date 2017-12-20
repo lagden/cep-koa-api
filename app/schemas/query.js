@@ -28,12 +28,13 @@ const Query = new GraphQLObjectType({
 			description: 'Consulta o número do CEP',
 			type: dados,
 			args: {
-				cep: {type: new GraphQLNonNull(GraphQLString)}
+				cep: {
+					type: new GraphQLNonNull(GraphQLString)
+				}
 			},
 			async resolve(_root, {cep}, ctx) {
 				try {
-					const dados = await find(cep)
-					return dados
+					return await find(cep)
 				} catch (err) {
 					ctx.state.status = err.status
 					throw err

@@ -16,7 +16,7 @@ services:
       - 1235:${PORT}
     volumes:
       - ./:/home/node/app
-      - node_modules:/home/node/app/node_modules
+      - node_modules_test:/home/node/app/node_modules
     networks:
       - redis-net
     depends_on:
@@ -35,8 +35,7 @@ services:
       - NODE_ENV=test
       - RHOST=redis
     volumes:
-      - ./:/home/node/app
-      - node_modules:/home/node/app/node_modules
+      - ./test:/home/node/app/test
     networks:
       - redis-net
     depends_on:
@@ -47,4 +46,4 @@ networks:
   redis-net:
 
 volumes:
-  node_modules:
+  node_modules_test:

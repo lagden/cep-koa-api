@@ -92,6 +92,7 @@ test('gql 404', async t => {
 		.post('/gql')
 		.set('content-type', 'application/json')
 		.send(data)
+
 	const [{message}] = r.body.errors
 	t.is(r.status, 404)
 	t.is(message, 'CEP não encontrado')
@@ -102,6 +103,7 @@ test('gql 500', async t => {
 		.post('/gql')
 		.set('content-type', 'application/json')
 		.send({})
+
 	const [{message}] = r.body.errors
 	t.is(r.status, 500)
 	t.is(message, 'Must provide Source. Received: undefined')

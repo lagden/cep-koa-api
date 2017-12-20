@@ -8,7 +8,7 @@ abort() {
 	printf "\n  \033[31mError: $@\033[0m\n\n" && exit 1
 }
 
-docker-compose down --volumes
+docker-compose down --volumes --remove-orphans
 if test $? -ne 0; then
 	abort "Docker Compose Failed"
 fi
