@@ -57,7 +57,7 @@
     "coveralls": "3.0.0",
     "hash-to-port": "1.0.0",
     "nodemon": "1.12.6",
-    "nyc": "11.3.0",
+    "nyc": "11.4.1",
     "supertest": "3.0.0",
     "xo": "0.18.2"
   }
