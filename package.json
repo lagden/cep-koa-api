@@ -50,13 +50,13 @@
     "koa-app-base": "2.0.0",
     "koa-bodyparser": "4.2.0",
     "koa-compose": "4.0.0",
-    "koa-router": "7.3.0"
+    "koa-router": "7.4.0"
   },
   "devDependencies": {
     "ava": "0.24.0",
     "coveralls": "3.0.0",
     "hash-to-port": "1.0.0",
-    "nodemon": "1.13.3",
+    "nodemon": "1.14.7",
     "nyc": "11.4.1",
     "supertest": "3.0.0",
     "xo": "0.18.2"
