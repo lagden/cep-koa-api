@@ -1,7 +1,7 @@
 'use strict'
 
 const debug = require('@tadashi/debug')('cep-api')
-const app = require('./app/.')
+const app = require('./src/.')
 
 const {PORT = 3000} = process.env
 

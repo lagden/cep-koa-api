@@ -20,27 +20,24 @@ const dados = new GraphQLObjectType({
 	}
 })
 
+const consulta = {
+	description: 'Encontre o endereço através do CEP',
+	type: dados,
+	args: {
+		cep: {
+			type: new GraphQLNonNull(GraphQLString)
+		}
+	},
+	resolve(_root, {cep}) {
+		return find(cep)
+	}
+}
+
 const Query = new GraphQLObjectType({
 	name: 'Query',
 	description: 'Métodos de consulta',
 	fields: {
-		consulta: {
-			description: 'Consulta o número do CEP',
-			type: dados,
-			args: {
-				cep: {
-					type: new GraphQLNonNull(GraphQLString)
-				}
-			},
-			async resolve(_root, {cep}, ctx) {
-				try {
-					return await find(cep)
-				} catch (err) {
-					ctx.state.status = err.status
-					throw err
-				}
-			}
-		}
+		consulta
 	}
 })
 

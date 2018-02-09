@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através do CEP",
   "keywords": [
@@ -16,7 +16,7 @@
     "report": "nyc report --reporter=html",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
-    "test": "nyc ava",
+    "test": "nyc ava --serial",
     "start": "nodemon index.js"
   },
   "xo": {
@@ -43,10 +43,10 @@
   "license": "MIT",
   "dependencies": {
     "@tadashi/cache-redis": "1.0.0",
-    "@tadashi/cep": "1.2.0",
+    "@tadashi/cep": "1.2.1",
     "@tadashi/debug": "2.0.0",
     "globby": "7.1.1",
-    "graphql": "0.12.0",
+    "graphql": "0.13.0",
     "koa-app-base": "2.0.0",
     "koa-bodyparser": "4.2.0",
     "koa-compose": "4.0.0",

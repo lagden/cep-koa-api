@@ -20,12 +20,11 @@ Encontre os endereços através do CEP
 
 ## Uso
 
-Você pode utilizar o **GraphQL** ou **REST**
+Exemplo de uma consulta simples
 
 
-`[POST] /gql`
+**[POST] /gql**
 
-**query**
 
 ```graphql
 {
@@ -34,75 +33,6 @@ Você pode utilizar o **GraphQL** ou **REST**
     cidade
     uf
   }
-}
-```
-
-#### Response 200
-
-```json
-{
-  "data": {
-    "consulta": {
-      "endereco": "Avenida Paulista",
-      "cidade": "São Paulo",
-      "uf": "SP"
-    }
-  }
-}
-```
-
----
-
-`[GET] /cep/:cep`
-
-#### Response 200
-
-```json
-{
-  "bairro": "Bela Vista",
-  "cep": "01310200",
-  "cidade": "São Paulo",
-  "complemento": "",
-  "complemento2": "- de 1512 a 2132 - lado par",
-  "end": "Avenida Paulista",
-  "id": "0",
-  "uf": "SP",
-  "success": true,
-  "status": 200
-}
-```
-
----
-
-As repostas de erro são as mesmas para o **GraphQL** e **REST**
-
-#### Response 422
-
-```json
-{
-  "errors": [{
-    "message": "body parse error"
-  }]
-}
-```
-
-#### Response 404
-
-```json
-{
-  "errors": [{
-    "message": "CEP não encontrado"
-  }]
-}
-```
-
-#### Response 400
-
-```json
-{
-  "errors": [{
-    "message": "CEP deve conter 8 dígitos"
-  }]
 }
 ```
 
