@@ -45,8 +45,8 @@
     "@tadashi/cache-redis": "1.0.0",
     "@tadashi/cep": "1.2.1",
     "@tadashi/debug": "2.0.0",
-    "globby": "7.1.1",
-    "graphql": "0.13.0",
+    "globby": "8.0.1",
+    "graphql": "0.13.1",
     "koa-app-base": "2.0.0",
     "koa-bodyparser": "4.2.0",
     "koa-compose": "4.0.0",
@@ -56,9 +56,9 @@
     "ava": "0.25.0",
     "coveralls": "3.0.0",
     "hash-to-port": "1.0.0",
-    "nodemon": "1.14.8",
+    "nodemon": "1.15.0",
     "nyc": "11.4.1",
     "supertest": "3.0.0",
-    "xo": "0.18.2"
+    "xo": "0.20.3"
   }
 }
