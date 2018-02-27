@@ -56,7 +56,7 @@
     "ava": "0.25.0",
     "coveralls": "3.0.0",
     "hash-to-port": "1.0.0",
-    "nodemon": "1.15.1",
+    "nodemon": "1.16.0",
     "nyc": "11.4.1",
     "supertest": "3.0.0",
     "xo": "0.20.3"
