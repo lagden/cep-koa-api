@@ -44,7 +44,7 @@
   "dependencies": {
     "@tadashi/cache-redis": "1.0.0",
     "@tadashi/cep": "1.2.1",
-    "@tadashi/debug": "2.0.0",
+    "@tadashi/debug": "2.1.0",
     "globby": "8.0.1",
     "graphql": "0.13.1",
     "koa-app-base": "3.0.0",
