@@ -46,7 +46,7 @@
     "@tadashi/cep": "1.2.1",
     "@tadashi/debug": "2.0.0",
     "globby": "8.0.1",
-    "graphql": "0.13.1",
+    "graphql": "0.13.2",
     "koa-app-base": "3.0.0",
     "koa-bodyparser": "4.2.0",
     "koa-compose": "4.0.0",
