@@ -37,6 +37,17 @@ Exemplo de uma consulta simples
 ```
 
 
+```shell
+curl 'https://api.nimble.com.br/cep/v1/gql' \
+-H 'content-type: application/json' \
+-d '{
+  "query": "{consulta(cep: \"01310200\") { success, endereco: end, cidade, uf }}",
+  "variables": "",
+  "operationName": ""
+}' --compressed
+```
+
+
 ## License
 
 MIT © [Thiago Lagden](http://lagden.in)
