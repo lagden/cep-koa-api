@@ -7,6 +7,7 @@ ARG port=3000
 ENV PORT=$port
 ENV HOME=/home/node
 ENV APP=$HOME/app
+ENV DOCKER_MODE=1
 
 RUN mkdir $APP
 COPY . $APP

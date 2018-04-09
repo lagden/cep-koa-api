@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através do CEP",
   "keywords": [
@@ -13,10 +13,11 @@
     "node": "8.9.1"
   },
   "scripts": {
-    "report": "nyc report --reporter=html",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
-    "test": "nyc ava --serial",
+    "test": "NODE_ENV=test ava --serial",
+    "preci": "npm run pretest",
+    "ci": "NODE_ENV=test nyc ava --serial",
+    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "start": "nodemon index.js"
   },
   "xo": {

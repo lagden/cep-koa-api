@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.6'
 services:
   dev:
     build:
@@ -15,10 +15,9 @@ services:
     ports:
       - 1235:${PORT}
     volumes:
-      - ./:/home/node/app
-      - node_modules_test:/home/node/app/node_modules
+      - ./src:/home/node/app/src
     networks:
-      - redis-net
+      - net
     depends_on:
       - redis
 
@@ -26,24 +25,23 @@ services:
     image: redis:4.0.5-alpine
     hostname: redis
     networks:
-      - redis-net
+      - net
 
   test:
     image: cepkoa:dev
+    container_name: test
     command: ["npm", "test"]
     environment:
       - NODE_ENV=test
       - RHOST=redis
     volumes:
       - ./test:/home/node/app/test
+      - ./src:/home/node/app/src
     networks:
-      - redis-net
+      - net
     depends_on:
       - dev
       - redis
 
 networks:
-  redis-net:
-
-volumes:
-  node_modules_test:
+  net:
