@@ -28,6 +28,10 @@ docker pull lagden/cep_consulta
 
 ## Uso
 
+Endpoint: https://api.nimble.com.br/cep/v1/gql
+
+---
+
 Exemplo de uma consulta: https://graphqlbin.com/Q1X0iB
 
 
