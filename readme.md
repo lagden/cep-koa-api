@@ -17,19 +17,25 @@
 
 Encontre os endereços através do CEP
 
+## Docker
+
+Essa API está disponível via Docker: https://hub.docker.com/r/lagden/cep_consulta/
+
+```shell
+docker pull lagden/cep_consulta
+```
+
 
 ## Uso
 
-Exemplo de uma consulta simples
-
-
-**[POST] /gql**
+Exemplo de uma consulta
 
 
 ```graphql
-{
-  consulta(cep: "01310200") {
+query ConsultaCEP($cep: String!) {
+  consulta(cep: $cep) {
     endereco: end
+    bairro
     cidade
     uf
   }
@@ -41,9 +47,9 @@ Exemplo de uma consulta simples
 curl 'https://api.nimble.com.br/cep/v1/gql' \
 -H 'content-type: application/json' \
 -d '{
-  "query": "{consulta(cep: \"01310200\") { success, endereco: end, cidade, uf }}",
-  "variables": "",
-  "operationName": ""
+  "query": "query ConsultaCEP($cep: String!) { consulta(cep: $cep) { endereco: end, bairro, cidade, uf } }",
+  "variables": {"cep": "09715-295"},
+  "operationName": "ConsultaCEP"
 }' --compressed
 ```
 
