@@ -28,7 +28,7 @@ docker pull lagden/cep_consulta
 
 ## Uso
 
-Exemplo de uma consulta
+Exemplo de uma consulta: https://graphqlbin.com/Q1X0iB
 
 
 ```graphql
