@@ -2,8 +2,9 @@
   "apps": [{
     "name": "micro-cep-v1",
     "script": "index.js",
-    "max_memory_restart" : "65M",
-    "exec_mode": "fork",
+    "max_memory_restart" : "100M",
+    "instances": 3,
+    "exec_mode": "cluster_mode",
     "env": {
       "PREFIX_DEBUG": "cep",
       "DEBUG": "cep:error",

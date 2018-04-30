@@ -13,11 +13,11 @@
     "node": "8.9.1"
   },
   "scripts": {
+    "report": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
     "test": "NODE_ENV=test ava --serial",
     "preci": "npm run pretest",
     "ci": "NODE_ENV=test nyc ava --serial",
-    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "start": "nodemon index.js"
   },
   "xo": {
@@ -55,7 +55,6 @@
   },
   "devDependencies": {
     "ava": "0.25.0",
-    "coveralls": "3.0.0",
     "hash-to-port": "1.0.0",
     "nodemon": "1.17.3",
     "nyc": "11.6.0",

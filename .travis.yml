@@ -4,4 +4,4 @@ services:
 node_js:
   - "8.9"
 script: "npm run ci"
-after_script: "npm run coverage"
+after_script: "npm i coveralls@3.0.0 && npm run report"
