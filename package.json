@@ -58,7 +58,7 @@
     "hash-to-port": "1.0.0",
     "nodemon": "1.17.3",
     "nyc": "11.6.0",
-    "supertest": "3.0.0",
+    "supertest": "3.1.0",
     "xo": "0.20.3"
   }
 }
