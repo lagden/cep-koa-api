@@ -54,7 +54,7 @@
     "koa-router": "7.4.0"
   },
   "devDependencies": {
-    "ava": "0.25.0",
+    "ava": "1.0.1",
     "hash-to-port": "1.0.0",
     "nodemon": "1.17.3",
     "nyc": "11.6.0",
