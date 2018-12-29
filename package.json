@@ -43,7 +43,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@tadashi/cache-redis": "1.0.0",
+    "@tadashi/cache-redis": "1.1.0",
     "@tadashi/cep": "1.2.2",
     "@tadashi/debug": "2.1.0",
     "globby": "8.0.1",
