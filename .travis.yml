@@ -2,6 +2,7 @@ language: node_js
 services:
   - redis-server
 node_js:
-  - "8.9"
-script: "npm run ci"
-after_script: "npm i coveralls@3.0.0 && npm run report"
+  - "8"
+  - "10"
+script: "npx xo;npx nyc ava -t"
+after_script: "npm i coveralls nyc;npm run report"

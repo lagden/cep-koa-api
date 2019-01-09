@@ -4,43 +4,55 @@ services:
     build:
       context: ./
       args:
-        port: ${PORT}
-        npm_cmd: "npm i --progress=false --quiet"
+        NODE_ENV: dev
+        PORT: ${PORT:-3000}
     image: cepkoa:dev
+    container_name: dev
     command: ["npm", "start"]
+    env_file:
+     - ./.env
     environment:
-      - DEBUG=${PREFIX_DEBUG}:*
       - NODE_ENV=dev
+      - DEBUG_COLORS=1
+      - DEBUG=cepkoa:*
       - RHOST=redis
     ports:
-      - 1235:${PORT}
+      - ${LOCALPORT:-3333}:${PORT:-3000}
     volumes:
       - ./src:/home/node/app/src
+      - ./index.js:/home/node/app/index.js
     networks:
       - net
     depends_on:
       - redis
 
   redis:
-    image: redis:4.0.5-alpine
+    image: redis:5-alpine
     hostname: redis
     networks:
       - net
 
   test:
-    image: cepkoa:dev
+    build:
+      context: ./
+      args:
+        NODE_ENV: test
+        PORT: ${PORT:-3000}
+    image: cepkoa:test
     container_name: test
     command: ["npm", "test"]
+    env_file:
+     - ./.env
     environment:
       - NODE_ENV=test
       - RHOST=redis
     volumes:
       - ./test:/home/node/app/test
       - ./src:/home/node/app/src
+      - ./index.js:/home/node/app/index.js
     networks:
       - net
     depends_on:
-      - dev
       - redis
 
 networks:

@@ -1,4 +1,4 @@
 src/***
-pm2.json
+ecosystem.config.js
 index.js
 package.json

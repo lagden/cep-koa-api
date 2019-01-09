@@ -7,18 +7,20 @@ const {
 	RPORT: port = 6379,
 	RHOST: host = 'localhost',
 	RPASS: password = '',
-	RDB: db = 1
+	RDB: db = 0,
+	RNAMESPACE: namespace = 'cepkoa_api',
+	RKEYPREFIX: keyPrefix = 'cepkoa'
 } = process.env
 
 const cache = new Cache({
 	redis: {
-		keyPrefix: 'cepkoa',
+		keyPrefix,
 		port,
 		host,
 		password,
 		db
 	},
-	namespace: 'cepkoa_api'
+	namespace
 })
 
 module.exports = cache

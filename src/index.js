@@ -1,8 +1,8 @@
 'use strict'
 
-const debug = require('@tadashi/debug')('cep-api')
 const base = require('koa-app-base')
 const routes = require('./routes')
+const debug = require('./lib/debug')
 
 const app = base({error: {emit: true}})
 	.use(routes)

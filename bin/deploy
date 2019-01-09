@@ -1,5 +1,13 @@
 #!/bin/bash
 
+abort() {
+	printf "\n  \033[31mError: $@\033[0m\n\n" && exit 1
+}
+
+ok() {
+	printf "\n  \033[32mOk: $@\033[0m\n\n"
+}
+
 DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 cd $DIR
 cd ..
@@ -7,21 +15,16 @@ CURR_FOLDER=`pwd`
 
 USER=tex
 SERVER=200.98.233.178
-DEPLOY_FOLDER="~/www/api/cep/v1"
-
-ssh -T $USER@$SERVER <<EOF
-mkdir -p $DEPLOY_FOLDER
-exit 0
-EOF
+DEPLOY_FOLDER="/home/tex/www/api/cep/v1"
 
 # Sync
-rsync -avzlhe ssh -r --delete --include-from $CURR_FOLDER/.rsync-include --exclude-from $CURR_FOLDER/.rsync-exclude $CURR_FOLDER/. $USER@$SERVER:$DEPLOY_FOLDER > $CURR_FOLDER/.rsync.log
+rsync -avzlh --rsync-path="mkdir -p ${DEPLOY_FOLDER}; /usr/bin/rsync" -e ssh -r --delete --include-from $CURR_FOLDER/.rsync-include --exclude-from $CURR_FOLDER/.rsync-exclude $CURR_FOLDER/. $USER@$SERVER:$DEPLOY_FOLDER > $CURR_FOLDER/.rsync.log
+test $? -ne 0 && abort "Falha no rsync" || ok "Sincronizado..."
 
 ssh -T $USER@$SERVER <<EOF
 cd $DEPLOY_FOLDER
-# NODE_ENV=production bin/db
 /usr/local/bin/npm install --production
-/usr/local/bin/pm2 startOrGracefulReload pm2.json --env production
+/usr/local/bin/pm2 startOrGracefulReload ecosystem.config.js --only micro-cep-v1
 /usr/local/bin/pm2 save
 exit 0
 EOF

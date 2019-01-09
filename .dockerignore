@@ -1,11 +1,4 @@
-.DS_Store
-.nyc_output
-.dockerignore
-.editorconfig
-.env
-.git*
-.rsync*
-.travis.yml
+.*
 bin
 coverage
 node_modules

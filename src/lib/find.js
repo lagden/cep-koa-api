@@ -8,18 +8,14 @@ function _cleanup(cep) {
 }
 
 async function find(_cep) {
-	try {
-		const cep = _cleanup(_cep)
-		const fromCache = await cache.get(cep)
-		if (fromCache) {
-			return fromCache
-		}
-		const res = await consulta(cep)
-		await cache.set(cep, res)
-		return res
-	} catch (err) {
-		throw err
+	const cep = _cleanup(_cep)
+	const fromCache = await cache.get(cep)
+	if (fromCache) {
+		return fromCache
 	}
+	const res = await consulta(cep)
+	await cache.set(cep, res)
+	return res
 }
 
 module.exports = find
