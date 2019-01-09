@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "6.2.0",
+  "version": "6.1.0",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através do CEP",
   "keywords": [
