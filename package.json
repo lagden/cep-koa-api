@@ -44,7 +44,7 @@
     "@tadashi/cep": "1.4.0",
     "debug": "4.1.1",
     "graphql": "14.0.2",
-    "koa-app-base": "3.4.1",
+    "koa-app-base": "3.5.0",
     "koa-bodyparser": "4.2.1",
     "koa-compose": "4.1.0",
     "koa-router": "7.4.0"
