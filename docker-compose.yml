@@ -41,6 +41,7 @@ services:
     image: cepkoa:test
     container_name: test
     command: ["npm", "test"]
+    # command: ["npx", "nyc", "ava", "--serial", "-t"]
     env_file:
      - ./.env
     environment:

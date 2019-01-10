@@ -4,7 +4,7 @@ const base = require('koa-app-base')
 const routes = require('./routes')
 const debug = require('./lib/debug')
 
-const app = base({error: {emit: true}})
+const app = base({error: true})
 	.use(routes)
 	.on('error', debug.error)
 

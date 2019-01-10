@@ -13,16 +13,11 @@ async function gql(ctx) {
 	const res = await graphql(schema, query, null, ctx, variables, operationName)
 	if (res.errors) {
 		debug.error('gql ---> ', res.errors)
-		ctx.status = 500
-		for (const error of res.errors) {
-			const {originalError} = error
-			if (originalError) {
-				/* istanbul ignore next */
-				ctx.status = originalError.status || originalError.code || ctx.status
-				ctx.throw(ctx.status, originalError.message, originalError)
-			}
-			ctx.throw(ctx.status, error.message, error)
-		}
+		const [error] = res.errors
+		const {originalError} = error
+		const {status, code, message} = originalError || error
+		ctx.status = status || code || 500
+		ctx.throw(ctx.status, message, {graphql: res.errors})
 	}
 	ctx.body = res
 }
