@@ -4,5 +4,5 @@ services:
 node_js:
   - "8"
   - "10"
-script: "npx xo;npx nyc ava -t"
+script: "npx xo;npx nyc ava --serial -t"
 after_script: "npm i coveralls nyc;npm run report"
