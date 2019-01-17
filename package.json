@@ -29,7 +29,8 @@
           "properties": "never"
         }
       ],
-      "capitalized-comments": 0
+      "capitalized-comments": 0,
+      "padding-line-between-statements": 0
     }
   },
   "main": "index.js",
@@ -43,7 +44,7 @@
     "@tadashi/cache-redis": "1.1.0",
     "@tadashi/cep": "1.4.0",
     "debug": "4.1.1",
-    "graphql": "14.1.0",
+    "graphql": "14.1.1",
     "koa-app-base": "3.5.0",
     "koa-bodyparser": "4.2.1",
     "koa-compose": "4.1.0",
@@ -53,7 +54,7 @@
     "ava": "1.1.0",
     "hash-to-port": "1.0.0",
     "nodemon": "1.18.9",
-    "supertest": "3.4.0",
+    "supertest": "3.4.1",
     "xo": "0.24.0"
   }
 }

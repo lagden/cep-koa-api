@@ -31,7 +31,7 @@ test('bodyparser', async t => {
 		r = error
 	}
 
-	const [{message}] = r.response.body.errors
+	const [{message}] = r.body.errors
 	t.is(r.status, 400)
 	t.is(message, 'invalid JSON, only supports object and array')
 })
@@ -79,7 +79,7 @@ test('404', async t => {
 		r = error
 	}
 
-	const [{message}] = r.response.body.errors
+	const [{message}] = r.body.errors
 	t.is(r.status, 404)
 	t.is(message, 'CEP não encontrado')
 })
@@ -99,7 +99,7 @@ test('400', async t => {
 		r = error
 	}
 
-	const [{message}] = r.response.body.errors
+	const [{message}] = r.body.errors
 	t.is(r.status, 400)
 	t.is(message, 'CEP deve conter 8 dígitos')
 })
@@ -115,7 +115,7 @@ test('500', async t => {
 		r = error
 	}
 
-	const [{message}] = r.response.body.errors
+	const [{message}] = r.body.errors
 	t.is(r.status, 500)
 	t.is(message, 'Must provide Source. Received: undefined')
 })
