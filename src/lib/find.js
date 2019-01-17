@@ -13,6 +13,7 @@ async function find(_cep) {
 	if (fromCache) {
 		return fromCache
 	}
+
 	const res = await consulta(cep)
 	await cache.set(cep, res)
 	return res

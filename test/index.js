@@ -21,12 +21,17 @@ test.before(_cleanup)
 test.after(_cleanup)
 
 test('bodyparser', async t => {
-	const r = await app
-		.post('/gql')
-		.set('content-type', 'application/json')
-		.send('apenas um show...')
+	let r
+	try {
+		r = await app
+			.post('/gql')
+			.set('content-type', 'application/json')
+			.send('apenas um show...')
+	} catch (error) {
+		r = error
+	}
 
-	const [{message}] = r.body.errors
+	const [{message}] = r.response.body.errors
 	t.is(r.status, 400)
 	t.is(message, 'invalid JSON, only supports object and array')
 })
@@ -64,12 +69,17 @@ test('404', async t => {
 	data.query = query
 	data.variables = {cep: '00000000'}
 	data.operationName = 'Consulta'
-	const r = await app
-		.post('/gql')
-		.set('content-type', 'application/json')
-		.send(data)
+	let r
+	try {
+		r = await app
+			.post('/gql')
+			.set('content-type', 'application/json')
+			.send(data)
+	} catch (error) {
+		r = error
+	}
 
-	const [{message}] = r.body.errors
+	const [{message}] = r.response.body.errors
 	t.is(r.status, 404)
 	t.is(message, 'CEP não encontrado')
 })
@@ -79,23 +89,33 @@ test('400', async t => {
 	data.query = query
 	data.variables = {cep: '1234567'}
 	data.operationName = 'Consulta'
-	const r = await app
-		.post('/gql')
-		.set('content-type', 'application/json')
-		.send(data)
+	let r
+	try {
+		r = await app
+			.post('/gql')
+			.set('content-type', 'application/json')
+			.send(data)
+	} catch (error) {
+		r = error
+	}
 
-	const [{message}] = r.body.errors
+	const [{message}] = r.response.body.errors
 	t.is(r.status, 400)
 	t.is(message, 'CEP deve conter 8 dígitos')
 })
 
 test('500', async t => {
-	const r = await app
-		.post('/gql')
-		.set('content-type', 'application/json')
-		.send({})
+	let r
+	try {
+		r = await app
+			.post('/gql')
+			.set('content-type', 'application/json')
+			.send({})
+	} catch (error) {
+		r = error
+	}
 
-	const [{message}] = r.body.errors
+	const [{message}] = r.response.body.errors
 	t.is(r.status, 500)
 	t.is(message, 'Must provide Source. Received: undefined')
 })

@@ -19,6 +19,7 @@ async function gql(ctx) {
 		ctx.status = status || code || 500
 		ctx.throw(ctx.status, message, {graphql: res.errors})
 	}
+
 	ctx.body = res
 }
 
