@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através do CEP",
   "keywords": [
@@ -42,19 +42,19 @@
   "license": "MIT",
   "dependencies": {
     "@tadashi/cache-redis": "1.1.0",
-    "@tadashi/cep": "1.4.0",
+    "@tadashi/cep": "1.4.1",
     "debug": "4.1.1",
     "graphql": "14.1.1",
-    "koa-app-base": "3.5.0",
+    "koa-app-base": "3.6.0",
     "koa-bodyparser": "4.2.1",
     "koa-compose": "4.1.0",
     "koa-router": "7.4.0"
   },
   "devDependencies": {
-    "ava": "1.1.0",
+    "ava": "1.2.1",
     "hash-to-port": "1.0.0",
     "nodemon": "1.18.9",
-    "supertest": "3.4.1",
+    "supertest": "3.4.2",
     "xo": "0.24.0"
   }
 }
