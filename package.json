@@ -44,7 +44,7 @@
     "@tadashi/cache-redis": "1.1.0",
     "@tadashi/cep": "1.4.1",
     "debug": "4.1.1",
-    "graphql": "14.1.1",
+    "graphql": "14.2.0",
     "koa-app-base": "3.6.0",
     "koa-bodyparser": "4.2.1",
     "koa-compose": "4.1.0",
