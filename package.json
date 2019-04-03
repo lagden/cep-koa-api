@@ -41,7 +41,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@tadashi/cache-redis": "1.1.0",
+    "@tadashi/cache-redis": "2.0.0",
     "@tadashi/cep": "1.4.1",
     "debug": "4.1.1",
     "graphql": "14.1.1",
