@@ -42,7 +42,7 @@
   "license": "MIT",
   "dependencies": {
     "@tadashi/cache-redis": "1.1.0",
-    "@tadashi/cep": "1.4.1",
+    "@tadashi/cep": "1.5.0",
     "debug": "4.1.1",
     "graphql": "14.1.1",
     "koa-app-base": "3.6.0",
