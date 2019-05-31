@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  cep:
+    build:
+      context: ./
+      args:
+        NODE_ENV: ${ENV}
+    command: ["npm", "start"]
+    volumes:
+      - ./src:/home/node/app/src

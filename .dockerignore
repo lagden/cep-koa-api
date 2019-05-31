@@ -7,7 +7,6 @@ docker-compose*.yml
 Dockerfile*
 LICENSE
 license
-package-lock.json
-pm2.json
+package-*.json
 readme.md
 README.md

@@ -1,13 +1,10 @@
 'use strict'
 
-const base = require('koa-app-base')
-const routes = require('./routes')
+const app = require('./app')
 const debug = require('./lib/debug')
 
-const app = base({error: true})
-	.use(routes)
-	.on('error', debug.error)
+const {PORT = 3000} = process.env
 
-app.proxy = true
-
-module.exports = app
+app.listen(PORT, () => {
+	debug.log(`Server listening on port ${PORT}`)
+})

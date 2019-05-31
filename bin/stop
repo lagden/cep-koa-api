@@ -1,16 +1,38 @@
 #!/bin/bash
 
-DIR="$( cd -P "$( dirname "$0" )" && pwd )"
-cd $DIR
-cd ..
-
 abort() {
 	printf "\n  \033[31mError: $@\033[0m\n\n" && exit 1
 }
 
-docker-compose down --volumes --remove-orphans
-if test $? -ne 0; then
-	abort "Docker Compose Failed"
+ok() {
+	printf "\n  \033[32mOk: $@\033[0m\n\n"
+}
+
+DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+cd $DIR
+cd ..
+
+CURR_FOLDER=`pwd`
+OPT="development"
+COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
+COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
+
+# ENV File
+ENVFILE="${CURR_FOLDER}/.env-${OPT}"
+if test ! -e $ENVFILE; then
+	abort "Environment file not found"
 fi
+
+set -a
+source $ENVFILE
+
+docker-compose \
+	-f $COMPOSE_TEMPLATE \
+	-f $COMPOSE_LOCAL \
+	down \
+	--volumes \
+	--remove-orphans
+
+test $? -ne 0 && abort "Docker Compose Failed" || ok "Stopped"
 
 exit 0

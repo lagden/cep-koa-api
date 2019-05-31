@@ -15,7 +15,7 @@
     "report": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
     "test": "ava --serial -t",
-    "start": "nodemon index.js"
+    "start": "nodemon src/index.js"
   },
   "xo": {
     "envs": [
@@ -39,22 +39,22 @@
     "LICENSE",
     "readme.md"
   ],
-  "license": "MIT",
   "dependencies": {
-    "@tadashi/cache-redis": "1.1.0",
-    "@tadashi/cep": "1.4.1",
+    "@tadashi/cache-redis": "4.0.0",
+    "@tadashi/cep": "1.5.0",
     "debug": "4.1.1",
-    "graphql": "14.1.1",
-    "koa-app-base": "3.6.0",
+    "graphql": "14.3.1",
+    "koa-app-base": "3.8.0",
     "koa-bodyparser": "4.2.1",
     "koa-compose": "4.1.0",
     "koa-router": "7.4.0"
   },
   "devDependencies": {
-    "ava": "1.2.1",
+    "ava": "1.4.1",
     "hash-to-port": "1.0.0",
-    "nodemon": "1.18.9",
-    "supertest": "3.4.2",
+    "nodemon": "1.19.1",
+    "supertest": "4.0.2",
     "xo": "0.24.0"
-  }
+  },
+  "license": "MIT"
 }

@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  redis:
+    image: redis:5-alpine
+    command: >
+      --appendonly yes
+      --requirepass ${REDIS_PWD}
+    networks:
+      - net
+
+  cep:
+    image: ${REGISTRY}/${AKA}/cep_consulta:${VERSION_CEP}
+    command: ["node", "src/index.js"]
+    environment:
+      - NODE_ENV=${ENV}
+      - DEBUG=${DEBUG}
+      - DEBUG_COLORS=${DEBUG_COLORS}
+      - REDIS=${REDIS}
+      - REDIS_PWD=${REDIS_PWD}
+    networks:
+      - net
+    depends_on:
+      - redis
+
+networks:
+  net:

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+abort() {
+	printf "\n  \033[31mError: $@\033[0m\n\n" && exit 1
+}
+
+ok() {
+	printf "\n  \033[32mOk: $@\033[0m\n\n"
+}
+
+DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+cd $DIR
+cd ..
+
+CURR_FOLDER=`pwd`
+OPT="production"
+
+# ENV File
+ENVFILE="${CURR_FOLDER}/.env-${OPT}"
+if test ! -e $ENVFILE; then
+	abort "Environment file not found"
+fi
+
+set -a
+source $ENVFILE
+
+REGISTRY_HOST="${REGISTRY:-registry.hub.docker.com}"
+IMAGE="${LOCAL_IMAGE:-cep_consulta}"
+SRC_IMAGE="$IMAGE:${VERSION_CEP:-latest}"
+TAR_IMAGE="$REGISTRY_HOST/$SRC_IMAGE"
+
+## Build Image
+docker build --compress --force-rm --no-cache . --tag $SRC_IMAGE
+test $? -ne 0 && abort "Falha no build da image" || ok "Build image ok"
+
+## Push (Send Image to Registry)
+docker login
+docker tag $SRC_IMAGE $TAR_IMAGE
+docker push $TAR_IMAGE
+
+exit 0
