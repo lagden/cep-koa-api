@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  cep:
+    command: ["npm", "test"]
+    volumes:
+      - ./src:/home/node/app/src
+      - ./test:/home/node/app/test

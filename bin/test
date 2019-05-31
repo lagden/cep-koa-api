@@ -10,7 +10,7 @@ SERVICE="cep"
 OPT="test"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
-COMPOSE_TEST="${CURR_FOLDER}/docker-compose.test.yml"
+COMPOSE_TEST="${CURR_FOLDER}/docker-compose.devtest.yml"
 
 abort() {
 	printf "\n  \033[31mError: $@\033[0m\n\n" && exit 1
