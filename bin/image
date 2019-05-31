@@ -24,18 +24,17 @@ fi
 set -a
 source $ENVFILE
 
-REGISTRY_HOST="${REGISTRY:-registry.hub.docker.com}"
 IMAGE="${LOCAL_IMAGE:-cep_consulta}"
-SRC_IMAGE="$IMAGE:${VERSION_CEP:-latest}"
-TAR_IMAGE="$REGISTRY_HOST/$SRC_IMAGE"
+TAG_IMAGE_VERSION="$IMAGE:${VERSION_CEP}"
+TAG_IMAGE_LATEST="$IMAGE:latest"
 
 ## Build Image
-docker build --compress --force-rm --no-cache . --tag $SRC_IMAGE
+docker build --compress --force-rm --no-cache . --tag $TAG_IMAGE_LATEST
 test $? -ne 0 && abort "Falha no build da image" || ok "Build image ok"
 
 ## Push (Send Image to Registry)
 docker login
-docker tag $SRC_IMAGE $TAR_IMAGE
-docker push $TAR_IMAGE
+docker tag $TAG_IMAGE_LATEST $TAG_IMAGE_VERSION
+docker push $TAG_IMAGE_VERSION
 
 exit 0
