@@ -1,7 +1,7 @@
 FROM node:10-alpine
 LABEL maintainer="docker@lagden.in"
 
-RUN apk --update add --no-cache acl git
+RUN apk --update add --no-cache acl
 
 ARG NODE_ENV=production
 ARG PORT=3000

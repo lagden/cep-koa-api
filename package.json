@@ -57,9 +57,6 @@
     }
   },
   "ava": {
-    "files": [
-      "test/**/*"
-    ],
     "helpers": [
       "test/helpers/**/*"
     ]
