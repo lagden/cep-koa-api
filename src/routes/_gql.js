@@ -3,7 +3,7 @@
 const Router = require('koa-router')
 const bodyparser = require('koa-bodyparser')
 const {graphql} = require('graphql')
-const schema = require('../schemas')
+const schema = require('../make-schema')
 const debug = require('../lib/debug')
 
 const router = new Router()

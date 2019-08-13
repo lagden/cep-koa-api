@@ -7,6 +7,5 @@ docker-compose*.yml
 Dockerfile*
 LICENSE
 license
-package-*.json
 readme.md
 README.md

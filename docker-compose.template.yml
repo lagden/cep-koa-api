@@ -12,7 +12,7 @@ services:
     image: ${REGISTRY}/${AKA}/cep_consulta:${VERSION_CEP}
     command: ["node", "src/index.js"]
     environment:
-      - NODE_ENV=${ENV}
+      - NODE_ENV=${NODE_ENV}
       - DEBUG=${DEBUG}
       - DEBUG_COLORS=${DEBUG_COLORS}
       - REDIS=${REDIS}

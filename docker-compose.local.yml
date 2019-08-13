@@ -4,7 +4,7 @@ services:
     build:
       context: ./
       args:
-        NODE_ENV: ${ENV}
+        NODE_ENV: ${NODE_ENV}
     command: ["npm", "start"]
     volumes:
       - ./src:/home/node/app/src

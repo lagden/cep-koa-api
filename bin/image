@@ -29,7 +29,9 @@ TAG_IMAGE_VERSION="$IMAGE:${VERSION_CEP}"
 TAG_IMAGE_LATEST="$IMAGE:latest"
 
 ## Build Image
-docker build --compress --force-rm --no-cache . --tag $TAG_IMAGE_LATEST
+docker build \
+	--build-arg NODE_ENV=${NODE_ENV} \
+	--compress --force-rm --no-cache . --tag $TAG_IMAGE_LATEST
 test $? -ne 0 && abort "Falha no build da image" || ok "Build image ok"
 
 ## Push (Send Image to Registry)
