@@ -42,13 +42,12 @@ $ bin/start -bd
 - `-b` para construir (build) a imagem
 - `-d` para rodar em background (daemon)
 
-e
 
 ```
 $ bin/stop
 ```
 
-Termina todos os containers.
+Termina todos os containers que estão rodando.
 
 
 ### Local
