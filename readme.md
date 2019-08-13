@@ -22,7 +22,7 @@
 [greenkeeper]:         https://greenkeeper.io/
 
 
-Encontre os endereços através do CEP
+Encontre os endereços através do CEP.
 
 
 ## Desenvolvimento
@@ -32,13 +32,28 @@ Existem duas maneiras de trabalhar no desenvolvimento desse projeto:
 - Via Docker
 - Local
 
-### Via docker
+
+### Via Docker
 
 ```
-$ bin/start -b
+$ bin/start -bd
 ```
+
+- `-b` para construir (build) a imagem
+- `-d` para rodar em background (daemon)
+
+e
+
+```
+$ bin/stop
+```
+
+Termina todos os containers.
+
 
 ### Local
+
+Precisa do [Redis Server](https://redis.io/download) instalado e rodando.
 
 ```
 $ npm i
@@ -48,7 +63,7 @@ $ npm start
 
 ## Docker
 
-Essa API está disponível via Docker: https://hub.docker.com/r/lagden/cep_consulta/
+Essa API está disponível Docker Hub: https://hub.docker.com/r/lagden/cep_consulta/
 
 ```shell
 docker pull lagden/cep_consulta
