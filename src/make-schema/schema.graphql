@@ -1,8 +1,6 @@
 """
-Consulta de CEP
+Dados de retorno da consulta
 """
-
-"Dados de retorno da consulta"
 type Dados {
 	cep: String
 	end: String
@@ -16,7 +14,9 @@ type Dados {
 	status: Int
 }
 
-"Métodos disponíveis"
+"""
+Métodos disponíveis para consulta
+"""
 type Query {
 	"Encontre o endereço através do CEP"
 	consulta(cep: String!): Dados

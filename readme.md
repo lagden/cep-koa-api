@@ -24,6 +24,28 @@
 
 Encontre os endereços através do CEP
 
+
+## Desenvolvimento
+
+Existem duas maneiras de trabalhar no desenvolvimento desse projeto:
+
+- Via Docker
+- Local
+
+### Via docker
+
+```
+$ bin/start -b
+```
+
+### Local
+
+```
+$ npm i
+$ npm start
+```
+
+
 ## Docker
 
 Essa API está disponível via Docker: https://hub.docker.com/r/lagden/cep_consulta/
@@ -62,6 +84,20 @@ curl 'https://api.nimble.com.br/cep/v1/gql' \
   "variables": {"cep": "09715-295"},
   "operationName": "ConsultaCEP"
 }' --compressed
+```
+
+
+```json
+{
+  "data": {
+    "consulta": {
+      "endereco": "Rua Primo Modolin",
+      "bairro": "Centro",
+      "cidade": "São Bernardo do Campo",
+      "uf": "SP"
+    }
+  }
+}
 ```
 
 

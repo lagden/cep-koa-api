@@ -1,6 +1,6 @@
 'use strict'
 
-const names = require('../../lib/find')
+const find = require('../../lib/find')
 
 function consulta(_root, {cep}) {
 	return find(cep)

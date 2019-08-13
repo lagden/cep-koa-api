@@ -17,6 +17,8 @@ services:
       - DEBUG_COLORS=${DEBUG_COLORS}
       - REDIS=${REDIS}
       - REDIS_PWD=${REDIS_PWD}
+    ports:
+      - ${PORT_PUBLISHED}:${PORT}
     networks:
       - net
     depends_on:
