@@ -1,6 +1,6 @@
 'use strict'
 
-const base = require('koa-app-base')
+const base = require('@tadashi/koa-base')
 const routes = require('./routes')
 const debug = require('./lib/debug')
 
