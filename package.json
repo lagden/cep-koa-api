@@ -9,7 +9,7 @@
     "api"
   ],
   "engines": {
-    "node": ">= 8.9.1"
+    "node": ">= 10"
   },
   "scripts": {
     "report": "nyc report --reporter=text-lcov | coveralls",
