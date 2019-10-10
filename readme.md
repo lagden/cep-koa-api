@@ -8,10 +8,10 @@
 [![Greenkeeper badge][greenkeeper-img]][greenkeeper]
 [![XO code style][xo-img]][xo]
 
-[docker-img]:          https://images.microbadger.com/badges/image/lagden/cep_consulta:release-6.3.0.svg
-[docker]:              https://microbadger.com/images/lagden/cep_consulta:release-6.3.0
-[dockerv-img]:         https://images.microbadger.com/badges/version/lagden/cep_consulta:release-6.3.0.svg
-[dockerv]:             https://microbadger.com/images/lagden/cep_consulta:release-6.3.0
+[docker-img]:          https://images.microbadger.com/badges/image/lagden/cep_consulta:release-6.5.1.svg
+[docker]:              https://microbadger.com/images/lagden/cep_consulta:release-6.5.1
+[dockerv-img]:         https://images.microbadger.com/badges/version/lagden/cep_consulta:release-6.5.1.svg
+[dockerv]:             https://microbadger.com/images/lagden/cep_consulta:release-6.5.1
 [ci-img]:              https://travis-ci.org/lagden/cep-koa-api.svg
 [ci]:                  https://travis-ci.org/lagden/cep-koa-api
 [coveralls-img]:       https://coveralls.io/repos/github/lagden/cep-koa-api/badge.svg?branch=master
