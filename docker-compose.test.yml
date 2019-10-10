@@ -11,7 +11,9 @@ services:
     build:
       context: ./
       args:
+        PORT: 3000
         NODE_ENV: test
+        VERSION: test
     command: ["npm", "test"]
     volumes:
       - ./src:/home/node/app/src

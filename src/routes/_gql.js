@@ -1,6 +1,6 @@
 'use strict'
 
-const Router = require('koa-router')
+const Router = require('@koa/router')
 const bodyparser = require('koa-bodyparser')
 const {graphql} = require('graphql')
 const schema = require('../make-schema')

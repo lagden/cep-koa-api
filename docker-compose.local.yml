@@ -4,7 +4,9 @@ services:
     build:
       context: ./
       args:
+        PORT: ${PORT}
         NODE_ENV: ${NODE_ENV}
+        VERSION: ${VERSION}
     command: ["npm", "start"]
     volumes:
       - ./src:/home/node/app/src

@@ -2,13 +2,14 @@
 
 const debug = require('debug')
 
-const error = debug('cepkoa:error')
-const log = debug('cepkoa:log')
+const {DEBUG_PREFIX = 'cepkoa'} = process.env
 
-log.color = debug.colors[3]
-error.color = debug.colors[5]
+const error = debug(`${DEBUG_PREFIX}:error`)
+const log = debug(`${DEBUG_PREFIX}:log`)
+const info = debug(`${DEBUG_PREFIX}:info`)
 
 module.exports = {
+	error,
 	log,
-	error
+	info
 }

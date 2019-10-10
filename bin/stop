@@ -1,14 +1,11 @@
 #!/bin/bash
 
-abort() {
-	printf "\n  \033[31mError: $@\033[0m\n\n" && exit 1
-}
-
-ok() {
-	printf "\n  \033[32mOk: $@\033[0m\n\n"
-}
-
 DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+
+# Import functions
+. $DIR/_fn
+
+# Go to project root
 cd $DIR
 cd ..
 

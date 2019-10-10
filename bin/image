@@ -1,19 +1,37 @@
 #!/bin/bash
 
-abort() {
-	printf "\n  \033[31mError: $@\033[0m\n\n" && exit 1
-}
-
-ok() {
-	printf "\n  \033[32mOk: $@\033[0m\n\n"
-}
-
 DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+
+# Import functions
+. $DIR/_fn
+
+usage() {
+	cat <<-EOF
+
+  Usage: $0 [-e <production|staging>]
+
+  Options:
+    -e   Environment
+    -h   Show usage
+
+EOF
+exit 0
+}
+
+# Go to project root
 cd $DIR
 cd ..
 
 CURR_FOLDER=`pwd`
-OPT="production"
+OPT="staging"
+
+while getopts ":e:" o
+do
+	case ${o} in
+		e) [ $OPTARG = "staging" -o $OPTARG = "production" ] && OPT=$OPTARG || usage ;;
+		*) usage ;;
+	esac
+done
 
 # ENV File
 ENVFILE="${CURR_FOLDER}/.env-${OPT}"
@@ -24,19 +42,26 @@ fi
 set -a
 source $ENVFILE
 
-IMAGE="${LOCAL_IMAGE:-cep_consulta}"
-TAG_IMAGE_VERSION="$IMAGE:${VERSION_CEP}"
-TAG_IMAGE_LATEST="$IMAGE:latest"
+## Variables
+REGISTRY_HOST="${REGISTRY}"
+REGISTRY_USER=`cat ${CURR_FOLDER}/.registry-user`
+REGISTRY_PASSWD=`cat ${CURR_FOLDER}/.registry-passwd`
+TAG_IMAGE="${REGISTRY_HOST}/${IMAGE}:${VERSION}"
 
-## Build Image
+## Build
 docker build \
+	--build-arg PORT=${PORT} \
 	--build-arg NODE_ENV=${NODE_ENV} \
-	--compress --force-rm --no-cache . --tag $TAG_IMAGE_LATEST
-test $? -ne 0 && abort "Falha no build da image" || ok "Build image ok"
+	--build-arg VERSION=${VERSION} \
+	--compress --force-rm --no-cache . --tag $TAG_IMAGE
+test $? -ne 0 && abort "Build fail" || ok "Build complete"
 
-## Push (Send Image to Registry)
-docker login
-docker tag $TAG_IMAGE_LATEST $TAG_IMAGE_VERSION
-docker push $TAG_IMAGE_VERSION
+## Push (Send Docker image to Registry)
+docker login -u $REGISTRY_USER -p $REGISTRY_PASSWD $REGISTRY_HOST
+docker push $TAG_IMAGE
+
+docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")
+
+ok "Build accomplished"
 
 exit 0

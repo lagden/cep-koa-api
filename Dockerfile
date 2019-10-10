@@ -1,23 +1,17 @@
-FROM node:12.9-alpine
-LABEL maintainer="docker@lagden.in"
+FROM node:12.10-alpine
 
-RUN apk --no-cache update && \
-		apk --no-cache upgrade && \
-		apk --no-cache add tzdata
+LABEL maintainer="docker@lagden.in"
 
 ARG PORT=3000
 ARG NODE_ENV=development
 ARG BASE=/home/node
-ARG TZ=America/Sao_Paulo
+ARG VERSION=dev
 
 ENV NODE_ENV=$NODE_ENV
 ENV PORT=$PORT
 ENV BASE=$BASE
+ENV VERSION=$VERSION
 ENV APP=$BASE/app
-ENV TZ=$TZ
-
-RUN cp /usr/share/zoneinfo/$TZ /etc/localtime && \
-		echo $TZ > /etc/timezone
 
 USER node
 WORKDIR $BASE

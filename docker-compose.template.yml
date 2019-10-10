@@ -9,14 +9,17 @@ services:
       - net
 
   cep:
-    image: ${REGISTRY}/${AKA}/cep_consulta:${VERSION_CEP}
+    image: ${REGISTRY}/${IMAGE}:${VERSION}
     command: ["node", "src/index.js"]
     environment:
       - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - DEBUG_COLORS=1
       - DEBUG=${DEBUG}
-      - DEBUG_COLORS=${DEBUG_COLORS}
+      - DEBUG_PREFIX=${DEBUG_PREFIX}
       - REDIS=${REDIS}
       - REDIS_PWD=${REDIS_PWD}
+      - VERSION=${VERSION}
     ports:
       - ${PORT_PUBLISHED}:${PORT}
     networks:
