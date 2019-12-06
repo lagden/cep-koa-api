@@ -71,7 +71,7 @@ docker pull lagden/cep_consulta
 
 ## Uso
 
-Endpoint: https://api.nimble.com.br/cep/v1/gql
+Endpoint: https://exemplo.com.br/cep/v1/gql
 
 ---
 
@@ -91,7 +91,7 @@ query ConsultaCEP($cep: String!) {
 
 
 ```shell
-curl 'https://api.nimble.com.br/cep/v1/gql' \
+curl 'https://exemplo.com.br/cep/v1/gql' \
 -H 'content-type: application/json' \
 -d '{
   "query": "query ConsultaCEP($cep: String!) { consulta(cep: $cep) { endereco: end, bairro, cidade, uf } }",
