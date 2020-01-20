@@ -15,7 +15,7 @@ ENV APP=$BASE/app
 USER node
 WORKDIR $BASE
 
-RUN mkdir -p $APP
+RUN mkdir -p $APP/data
 COPY . $APP
 
 WORKDIR $APP
@@ -23,3 +23,5 @@ RUN npm ci --ignore-scripts
 RUN npm rb
 
 EXPOSE $PORT
+
+CMD ["node", "server"]
