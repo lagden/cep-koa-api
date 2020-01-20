@@ -8,4 +8,4 @@ function sleep(t) {
 	})
 }
 
-export default sleep
+module.exports = sleep

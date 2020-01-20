@@ -1,6 +1,7 @@
 # App
 docker-compose-*
 .registry-*
+data
 
 # Logs
 logs

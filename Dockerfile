@@ -1,4 +1,4 @@
-FROM node:12.13-alpine
+FROM node:12.14-alpine
 LABEL maintainer="docker@lagden.in"
 
 ARG PORT=3000
@@ -20,6 +20,6 @@ COPY . $APP
 
 WORKDIR $APP
 RUN npm ci --ignore-scripts
-# RUN npm rb
+RUN npm rb
 
 EXPOSE $PORT

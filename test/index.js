@@ -1,8 +1,8 @@
 'use strict'
 
-import test from 'ava'
-import cache from '../src/lib/cache'
-import app from './helpers/server'
+const test = require('ava')
+const db = require('../server/lib/db')
+const app = require('./helpers/server')
 
 const query = `
 query Consulta($cep: String!) {
@@ -14,7 +14,7 @@ query Consulta($cep: String!) {
 }`
 
 async function _cleanup() {
-	await cache.clear()
+	await db.clear()
 }
 
 test.before(_cleanup)

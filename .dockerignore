@@ -1,11 +1,11 @@
 .*
 bin
 coverage
+data
 node_modules
 test
 docker-compose*.yml
 Dockerfile*
 LICENSE
 license
-readme.md
-README.md
+*.md

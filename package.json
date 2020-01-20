@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "6.6.0",
+  "version": "7.0.0",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através do CEP",
   "keywords": [
@@ -15,7 +15,7 @@
     "report": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
     "test": "ava --serial -t",
-    "start": "nodemon src/index.js"
+    "start": "nodemon server"
   },
   "main": "index.js",
   "files": [
@@ -24,21 +24,22 @@
     "readme.md"
   ],
   "dependencies": {
-    "@koa/router": "8.0.2",
-    "@tadashi/koa-base": "3.11.0",
-    "@tadashi/cache-redis": "4.1.0",
+    "@koa/router": "8.0.5",
     "@tadashi/cep": "1.8.0",
+    "@tadashi/koa-base": "3.11.0",
     "debug": "4.1.1",
     "graphql": "14.5.8",
-    "graphql-tools": "4.0.5",
+    "graphql-tools": "4.0.6",
     "koa-bodyparser": "4.2.1",
     "koa-compose": "4.1.0",
+    "level": "6.0.0",
     "lodash.merge": "4.6.2"
   },
   "devDependencies": {
-    "ava": "2.4.0",
+    "@tadashi/hex-id": "1.1.1",
+    "ava": "3.0.0",
     "hash-to-port": "1.1.0",
-    "nodemon": "1.19.3",
+    "nodemon": "2.0.2",
     "supertest": "4.0.2",
     "xo": "0.25.3"
   },
@@ -58,11 +59,6 @@
       "padding-line-between-statements": 0,
       "require-atomic-updates": 0
     }
-  },
-  "ava": {
-    "helpers": [
-      "test/helpers/**/*"
-    ]
   },
   "license": "MIT"
 }

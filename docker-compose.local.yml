@@ -9,4 +9,5 @@ services:
         VERSION: ${VERSION}
     command: ["npm", "start"]
     volumes:
-      - ./src:/home/node/app/src
+      - ./server:/home/node/app/server
+      - ./test:/home/node/app/test

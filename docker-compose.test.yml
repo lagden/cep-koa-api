@@ -1,12 +1,5 @@
 version: "3.6"
 services:
-  redis:
-    image: redis:5-alpine
-    command: >
-      --appendonly yes
-    networks:
-      - net
-
   sut:
     build:
       context: ./
@@ -16,15 +9,7 @@ services:
         VERSION: test
     command: ["npm", "test"]
     volumes:
-      - ./src:/home/node/app/src
+      - ./server:/home/node/app/server
       - ./test:/home/node/app/test
     environment:
       - NODE_ENV=test
-      - REDIS=redis:6379
-    networks:
-      - net
-    depends_on:
-      - redis
-
-networks:
-  net:

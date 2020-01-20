@@ -52,8 +52,6 @@ Termina todos os containers que estão rodando.
 
 ### Local
 
-Precisa do [Redis Server](https://redis.io/download) instalado e rodando.
-
 ```
 $ npm i
 $ npm start
