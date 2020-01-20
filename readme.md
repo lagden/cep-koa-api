@@ -69,15 +69,11 @@ docker pull lagden/cep_consulta
 
 ## Uso
 
-Endpoint: https://exemplo.com.br/cep/v1/gql
-
----
-
-Exemplo de uma consulta: https://graphqlbin.com/Q1X0iB
+Endpoint: https://service.exemplo.com.br/cep/v1/gql
 
 
 ```graphql
-query ConsultaCEP($cep: String!) {
+query Consulta($cep: String!) {
   consulta(cep: $cep) {
     endereco: end
     bairro
@@ -89,12 +85,12 @@ query ConsultaCEP($cep: String!) {
 
 
 ```shell
-curl 'https://exemplo.com.br/cep/v1/gql' \
+curl 'https://service.exemplo.com.br/cep/v1/gql' \
 -H 'content-type: application/json' \
 -d '{
-  "query": "query ConsultaCEP($cep: String!) { consulta(cep: $cep) { endereco: end, bairro, cidade, uf } }",
-  "variables": {"cep": "09715-295"},
-  "operationName": "ConsultaCEP"
+  "query": "query Consulta($cep: String!) { consulta(cep: $cep) { endereco: end, bairro, cidade, uf } }",
+  "variables": {"cep": "01311-000"},
+  "operationName": "Consulta"
 }' --compressed
 ```
 
@@ -103,9 +99,9 @@ curl 'https://exemplo.com.br/cep/v1/gql' \
 {
   "data": {
     "consulta": {
-      "endereco": "Rua Primo Modolin",
-      "bairro": "Centro",
-      "cidade": "São Bernardo do Campo",
+      "endereco": "Avenida Paulista",
+      "bairro": "Bela Vista",
+      "cidade": "São Paulo",
       "uf": "SP"
     }
   }
