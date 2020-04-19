@@ -1,0 +1,18 @@
+#!/bin/sh
+
+DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+
+# Import functions
+. $DIR/_fn
+
+# Go to project root
+cd $DIR
+cd ..
+
+ok "Watching folders: ${WATCH_FOLDERS}..."
+
+while true; do
+	find ${WATCH_FOLDERS} -type f | entr -nrd ${WATCH_CMD}
+done
+
+exit 0

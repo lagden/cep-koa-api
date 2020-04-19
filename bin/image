@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 
@@ -8,7 +8,7 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [-e <production|staging>]
+  Usage: $0 -e <production|staging>
 
   Options:
     -e   Environment
@@ -23,7 +23,7 @@ cd $DIR
 cd ..
 
 CURR_FOLDER=`pwd`
-OPT="staging"
+# OPT="staging"
 
 while getopts ":e:" o
 do
@@ -32,6 +32,10 @@ do
 		*) usage ;;
 	esac
 done
+
+if test -z ${OPT}; then
+	abort "Missing environment"
+fi
 
 # ENV File
 ENVFILE="${CURR_FOLDER}/.env-${OPT}"
@@ -54,7 +58,7 @@ docker build \
 	--build-arg NODE_ENV=${NODE_ENV} \
 	--build-arg VERSION=${VERSION} \
 	--compress --force-rm --no-cache . --tag $TAG_IMAGE
-test $? -ne 0 && abort "Build fail" || ok "Build complete"
+test $? -ne 0 && abort "Falha no build da image --> ${build}" || ok "Build image ok --> ${build}"
 
 ## Push (Send Docker image to Registry)
 docker login -u $REGISTRY_USER -p $REGISTRY_PASSWD $REGISTRY_HOST
@@ -62,6 +66,6 @@ docker push $TAG_IMAGE
 
 docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")
 
-ok "Build accomplished"
+ok "Build finalizado... Yeahh!!!"
 
 exit 0

@@ -10,17 +10,17 @@ const router = new Router()
 
 async function gql(ctx) {
 	const {query, variables, operationName} = ctx.request.body
-	const res = await graphql(schema, query, null, ctx, variables, operationName)
-	if (res.errors) {
-		debug.error('gql ---> ', res.errors)
-		const [error] = res.errors
+	const result = await graphql(schema, query, null, ctx, variables, operationName)
+	if (result.errors) {
+		debug.error('gql ---> ', result.errors)
+		const [error] = result.errors
 		const {originalError} = error
 		const {status, code, message} = originalError || error
 		ctx.status = status || code || 500
-		ctx.throw(ctx.status, message, {graphql: res.errors})
+		ctx.throw(ctx.status, message, {graphql: result.errors})
 	}
 
-	ctx.body = res
+	ctx.body = result
 }
 
 router

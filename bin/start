@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 
@@ -31,6 +31,14 @@ OPT="development"
 SERVICE=""
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
+
+UNAME=$(uname)
+if test $UNAME == 'Linux'; then
+	export ARG_ENTR_INOTIFY_WORKAROUND=0
+else
+	export ARG_ENTR_INOTIFY_WORKAROUND=1
+fi
+export DOCKERFILE="${CURR_FOLDER}/Dockerfile.dev"
 
 while getopts ":bds:" o
 do

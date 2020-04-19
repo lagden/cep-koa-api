@@ -1,14 +1,21 @@
 version: "3.7"
 services:
-  cep:
+  app:
     image: ${REGISTRY}/${IMAGE}:${VERSION}
     command: ["node", "server"]
     environment:
-      - NODE_ENV=${NODE_ENV}
-      - PORT=${PORT}
-      - DEBUG_COLORS=1
-      - DEBUG=${DEBUG}
-      - DEBUG_PREFIX=${DEBUG_PREFIX}
-      - VERSION=${VERSION}
+      NODE_ENV: ${NODE_ENV}
+      PORT: ${PORT}
+      DEBUG: ${DEBUG}
+      DEBUG_PREFIX: ${DEBUG_PREFIX}
+      DEBUG_COLORS: ${DEBUG_COLORS}
+      DEBUG_HIDE_DATE: ${DEBUG_HIDE_DATE}
+      VERSION: ${VERSION}
     ports:
       - ${PORT_PUBLISHED}:${PORT}
+    volumes:
+      - api_data:/home/node/app/data
+
+volumes:
+  api_data:
+    name: ${VOL_NAME}_api

@@ -75,15 +75,16 @@ Exemplo de um `docker-compose.yml`
 version: '3.7'
 
 services:
-  cep:
+  api:
     image: lagden/cep_consulta:latest
     command: ["node", "server"]
     environment:
       NODE_ENV: production
       PORT: 3000
-      DEBUG_COLORS: 1
-      DEBUG_PREFIX: cepkoa
       DEBUG: cepkoa:error,cepkoa:info
+      DEBUG_PREFIX: cepkoa
+      DEBUG_COLORS: 1
+      DEBUG_HIDE_DATE: 0
     ports:
       - 30008:3000
     volumes:

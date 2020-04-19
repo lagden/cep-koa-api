@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 
@@ -31,5 +31,7 @@ docker-compose \
 	--remove-orphans
 
 test $? -ne 0 && abort "Docker Compose Failed" || ok "Stopped"
+
+# docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")
 
 exit 0

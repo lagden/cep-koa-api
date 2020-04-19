@@ -5,7 +5,7 @@ const debug = require('./debug')
 const db = require('./db')
 
 function _cleanup(cep) {
-	return cep.replace(/[^\d]/g, '')
+	return cep.replace(/\D/, '')
 }
 
 async function find(_cep) {
@@ -29,9 +29,9 @@ async function find(_cep) {
 		return fromCache
 	}
 
-	const res = await consulta(cep)
-	await db.put(cepBuf, res)
-	return res
+	const result = await consulta(cep)
+	await db.put(cepBuf, result)
+	return result
 }
 
 module.exports = find

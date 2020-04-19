@@ -105,17 +105,12 @@ test('400', async t => {
 })
 
 test('500', async t => {
-	let r
-	try {
-		r = await app
-			.post('/gql')
-			.set('content-type', 'application/json')
-			.send({})
-	} catch (error) {
-		r = error
-	}
+	const result = await app
+		.post('/gql')
+		.set('content-type', 'application/json')
+		.send({})
 
-	const [{message}] = r.body.errors
-	t.is(r.status, 500)
-	t.is(message, 'Must provide Source. Received: undefined')
+	const [{message}] = result.body.errors
+	t.is(result.status, 500)
+	t.is(message, 'Must provide Source. Received: undefined.')
 })

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 
@@ -25,11 +25,13 @@ cd ..
 
 CURR_FOLDER=`pwd`
 BUILD=""
-SERVICE="cep"
+SERVICE="app"
 OPT="test"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 COMPOSE_TEST="${CURR_FOLDER}/docker-compose.devtest.yml"
+
+export DOCKERFILE="${CURR_FOLDER}/Dockerfile"
 
 _cleanup() {
 	docker-compose \
