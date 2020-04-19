@@ -29,7 +29,7 @@
     "@tadashi/koa-base": "3.11.0",
     "debug": "4.1.1",
     "graphql": "14.5.8",
-    "graphql-tools": "4.0.7",
+    "graphql-tools": "4.0.8",
     "koa-bodyparser": "4.2.1",
     "koa-compose": "4.1.0",
     "level": "6.0.0",
