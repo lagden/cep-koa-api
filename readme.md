@@ -2,24 +2,27 @@
 
 [![Docker Size][docker-img]][docker]
 [![Docker Status][dockerv-img]][dockerv]
+[![Docker Release][dockerelease-img]][dockerelease]
 
 [![Build Status][ci-img]][ci]
 [![Coverage Status][coveralls-img]][coveralls]
-[![Greenkeeper badge][greenkeeper-img]][greenkeeper]
 [![XO code style][xo-img]][xo]
+[![Snyk badge][snyk-img]][snyk]
 
 [docker-img]:          https://images.microbadger.com/badges/image/lagden/cep_consulta:latest.svg
 [docker]:              https://microbadger.com/images/lagden/cep_consulta:latest
 [dockerv-img]:         https://images.microbadger.com/badges/version/lagden/cep_consulta:latest.svg
 [dockerv]:             https://microbadger.com/images/lagden/cep_consulta:latest
+[dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-7.1.0
+[dockerelease]:        https://hub.docker.com/r/lagden/cep_consulta
 [ci-img]:              https://travis-ci.org/lagden/cep-koa-api.svg
 [ci]:                  https://travis-ci.org/lagden/cep-koa-api
 [coveralls-img]:       https://coveralls.io/repos/github/lagden/cep-koa-api/badge.svg?branch=master
 [coveralls]:           https://coveralls.io/github/lagden/cep-koa-api?branch=master
 [xo-img]:              https://img.shields.io/badge/code_style-XO-5ed9c7.svg
 [xo]:                  https://github.com/sindresorhus/xo
-[greenkeeper-img]:     https://badges.greenkeeper.io/lagden/koa-error.svg
-[greenkeeper]:         https://greenkeeper.io/
+[snyk-img]:            https://snyk.io/test/github/lagden/cep-koa-api/badge.svg
+[snyk]:                https://snyk.io/test/github/lagden/cep-koa-api
 
 
 Encontre os endereços através do CEP.
