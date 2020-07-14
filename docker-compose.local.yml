@@ -7,7 +7,7 @@ services:
       args:
         NODE_ENV: ${NODE_ENV}
         VERSION: ${VERSION}
-        ARG_ENTR_INOTIFY_WORKAROUND: ${ARG_ENTR_INOTIFY_WORKAROUND:-0}
+        ARG_ENTR_INOTIFY_WORKAROUND: ${ARG_ENTR_INOTIFY_WORKAROUND:-1}
     command: >
       /bin/ash -c "
         bin/watch

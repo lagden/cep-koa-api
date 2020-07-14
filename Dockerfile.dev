@@ -1,43 +1,30 @@
 # entr
-FROM alpine:3.11 as entr
+FROM lagden/entr:4.6-alpine3.12 as entr
 
 LABEL autodelete="true"
 LABEL maintainer="docker@lagden.in"
 
-## If Docker Host is Mac or Windows
-ARG ARG_ENTR_INOTIFY_WORKAROUND=0
-
-RUN apk update && apk add --no-cache file autoconf automake libtool gettext gettext-dev make g++ texinfo
-WORKDIR /root
-RUN wget https://github.com/eradman/entr/archive/4.4.tar.gz
-RUN tar -xvzf 4.4.tar.gz
-WORKDIR /root/entr-4.4
-RUN export ENTR_INOTIFY_WORKAROUND=$ARG_ENTR_INOTIFY_WORKAROUND \
-		&& \
-		test $ENTR_INOTIFY_WORKAROUND -eq 0 && unset ENTR_INOTIFY_WORKAROUND || echo "ENTR WORKAROUND IS ENABLED" \
-		&& \
-		./configure && make test && make install
-
-
 # APP DEV
-FROM node:12.16-alpine3.11
+FROM node:14.5-alpine3.12
 
 LABEL maintainer="docker@lagden.in"
 
 ## If Docker Host is Mac or Windows
-ARG ARG_ENTR_INOTIFY_WORKAROUND=0
+ARG ARG_ENTR_INOTIFY_WORKAROUND=1
 ENV ENTR_INOTIFY_WORKAROUND=$ARG_ENTR_INOTIFY_WORKAROUND
 
-ARG PORT=3000
 ARG NODE_ENV="development"
+ARG APP_ENV="development"
+ARG PORT=3000
 ARG VERSION="dev"
 ARG BASE="/home/node"
 
-ENV PORT=$PORT
 ENV NODE_ENV=$NODE_ENV
+ENV APP_ENV=$APP_ENV
+ENV PORT=$PORT
 ENV VERSION=$VERSION
 ENV BASE=$BASE
-ENV APP=$BASE/app
+ENV BASE_APP=$BASE/app
 
 WORKDIR /usr/local/bin
 COPY --from=entr /usr/local/bin/entr .
@@ -45,8 +32,8 @@ COPY --from=entr /usr/local/bin/entr .
 WORKDIR $BASE
 USER node
 
-RUN mkdir -p $APP/data
-COPY . $APP
+RUN mkdir -p $BASE_APP/data
+COPY . $BASE_APP
 
-WORKDIR $APP
+WORKDIR $BASE_APP
 RUN npm ci --ignore-scripts

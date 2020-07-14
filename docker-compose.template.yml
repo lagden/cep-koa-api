@@ -6,6 +6,7 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV}
       PORT: ${PORT}
+      PORT_PUBLISHED: ${PORT_PUBLISHED}
       DEBUG: ${DEBUG}
       DEBUG_PREFIX: ${DEBUG_PREFIX}
       DEBUG_COLORS: ${DEBUG_COLORS}

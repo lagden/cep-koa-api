@@ -1,25 +1,30 @@
-FROM node:12.16-alpine3.11
+FROM node:14.5-alpine3.12
 
 LABEL maintainer="docker@lagden.in"
 
-ARG PORT=3000
 ARG NODE_ENV="development"
+ARG APP_ENV="development"
+ARG PORT=3000
 ARG VERSION="dev"
 ARG BASE="/home/node"
 
-ENV PORT=$PORT
 ENV NODE_ENV=$NODE_ENV
+ENV APP_ENV=$APP_ENV
+ENV PORT=$PORT
 ENV VERSION=$VERSION
 ENV BASE=$BASE
-ENV APP=$BASE/app
+ENV BASE_APP=$BASE/app
 
 WORKDIR $BASE
 USER node
 
-RUN mkdir -p $APP/data
-COPY . $APP
+WORKDIR $BASE
+USER node
 
-WORKDIR $APP
+RUN mkdir -p $BASE_APP/data
+COPY . $BASE_APP
+
+WORKDIR $BASE_APP
 RUN npm ci --ignore-scripts
 
 CMD ["node", "server"]
