@@ -1,19 +1,16 @@
 # CEP API
 
+[![Docker Release][dockerelease-img]][dockerelease]
 [![Node.js CI][ci-img]][ci]
-[![Build Status][cci-img]][cci]
 [![Coverage Status][coveralls-img]][coveralls]
 
 [![XO code style][xo-img]][xo]
 [![Snyk badge][snyk-img]][snyk]
-[![Docker Release][dockerelease-img]][dockerelease]
 
 [dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-7.1.0
 [dockerelease]:        https://hub.docker.com/r/lagden/cep_consulta
 [ci-img]:              https://github.com/lagden/cep-koa-api/workflows/Node.js%20CI/badge.svg
 [ci]:                  https://github.com/lagden/cep-koa-api/actions?query=workflow%3A%22Node.js+CI%22
-[cci-img]:             https://travis-ci.org/lagden/cep-koa-api.svg
-[cci]:                 https://travis-ci.org/lagden/cep-koa-api
 [coveralls-img]:       https://coveralls.io/repos/github/lagden/cep-koa-api/badge.svg?branch=master
 [coveralls]:           https://coveralls.io/github/lagden/cep-koa-api?branch=master
 [xo-img]:              https://img.shields.io/badge/code_style-XO-5ed9c7.svg
