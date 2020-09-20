@@ -12,9 +12,9 @@
     "node": ">= 12"
   },
   "scripts": {
-    "report": "nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc --reporter=text-summary --reporter=lcov ava --serial -t -T 30s",
     "pretest": "xo",
-    "test": "ava --serial -t",
+    "test": "ava --serial -t -T 30s",
     "start": "node server",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
@@ -45,6 +45,7 @@
     "@tadashi/hex-id": "2.0.0",
     "ava": "3.12.1",
     "hash-to-port": "1.1.0",
+    "nyc": "15.1.0",
     "supertest": "4.0.2",
     "xo": "0.33.1"
   },

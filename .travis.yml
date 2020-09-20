@@ -1,16 +1,4 @@
-# language: node_js
-# services:
-#   - redis-server
-# node_js:
-#   - "10"
-#   - "12"
-# before_script: "npm i coveralls nyc"
-# script: "npx xo;npx nyc ava --serial -t"
-# after_script: "npm run report"
-
 language: node_js
 node_js:
-  - "12"
-before_script: "npm i coveralls nyc"
-script: "npx xo;npx nyc ava --serial -t"
-after_script: "npm run report"
+  - "14"
+script: "npm test"
