@@ -15,13 +15,7 @@ COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
 # ENV File
-ENVFILE="${CURR_FOLDER}/.env-${OPT}"
-if test ! -e $ENVFILE; then
-	abort "Environment file not found"
-fi
-
-set -a
-source $ENVFILE
+load_env
 
 docker-compose \
 	-f $COMPOSE_TEMPLATE \

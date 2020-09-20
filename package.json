@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "7.2.0",
+  "version": "7.3.0",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através do CEP",
   "keywords": [
@@ -15,7 +15,7 @@
     "report": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo",
     "test": "ava --serial -t",
-    "start": "nodemon server",
+    "start": "node server",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },

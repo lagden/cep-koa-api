@@ -38,13 +38,7 @@ if test -z ${OPT}; then
 fi
 
 # ENV File
-ENVFILE="${CURR_FOLDER}/.env-${OPT}"
-if test ! -e $ENVFILE; then
-	abort "Environment file not found"
-fi
-
-set -a
-source $ENVFILE
+load_env
 
 ## Variables
 REGISTRY_HOST="${REGISTRY}"
@@ -54,14 +48,12 @@ TAG_IMAGE="${REGISTRY_HOST}/${IMAGE}:${VERSION}"
 
 ## Build
 docker build \
-	--build-arg PORT=${PORT} \
 	--build-arg NODE_ENV=${NODE_ENV} \
-	--build-arg VERSION=${VERSION} \
 	--compress --force-rm --no-cache . --tag $TAG_IMAGE
 test $? -ne 0 && abort "Falha no build da image --> ${build}" || ok "Build image ok --> ${build}"
 
 ## Push (Send Docker image to Registry)
-docker login -u $REGISTRY_USER -p $REGISTRY_PASSWD $REGISTRY_HOST
+cat ${CURR_FOLDER}/.registry-passwd | docker login $REGISTRY_HOST --username $REGISTRY_USER --password-stdin
 docker push $TAG_IMAGE
 
 docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")

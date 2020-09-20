@@ -1,16 +1,18 @@
 'use strict'
 
+const {stdout} = process
 const app = require('./app')
-const debug = require('./lib/debug')
 
 const {
 	PORT = 3000,
 	PORT_PUBLISHED = 3000
 } = process.env
 
+const PAD = '  '
+
 app.listen(PORT, () => {
-	debug.info('Server listening...')
-	debug.info('-------------------')
-	debug.info(`Local:    http://[::1]:${PORT}`)
-	debug.info(`External: http://[::1]:${PORT_PUBLISHED}`)
+	stdout.write('Server is running!\n')
+	stdout.write('------------------\n\n')
+	stdout.write(PAD + `- Local:      http://127.0.0.1:${PORT}\n`)
+	stdout.write(PAD + `- Network:    http://127.0.0.1:${PORT_PUBLISHED}\n`)
 })

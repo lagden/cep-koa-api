@@ -16,5 +16,5 @@ services:
       WATCH_FOLDERS: "${WATCH_FOLDERS}"
       WATCH_CMD: "${WATCH_CMD}"
     volumes:
+      - ./bin:/home/node/app/bin
       - ./server:/home/node/app/server
-      - ./test:/home/node/app/test

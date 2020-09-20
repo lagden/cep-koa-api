@@ -7,6 +7,7 @@ const debug = require('./lib/debug')
 const app = base({
 	error: true,
 	cors: {
+		origin: '*',
 		credentials: true
 	}
 })

@@ -7,3 +7,16 @@ abort() {
 ok() {
 	printf "\n  \033[32mOk: $@\033[0m\n\n"
 }
+
+load_env() {
+	# ENV File
+	ENVFILE_BASE="${CURR_FOLDER}/.env-base"
+	ENVFILE_OPT="${CURR_FOLDER}/.env-${OPT}"
+	if test ! -e $ENVFILE_BASE -o ! -e $ENVFILE_OPT; then
+		abort "Environment file not found"
+	fi
+
+	set -a
+	source ${ENVFILE_BASE}
+	source ${ENVFILE_OPT}
+}

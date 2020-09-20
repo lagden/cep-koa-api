@@ -4,12 +4,12 @@ services:
     build:
       context: ./
       args:
-        PORT: 3000
-        NODE_ENV: test
+        NODE_ENV: development
         VERSION: test
     command: ["npm", "test"]
     volumes:
       - ./server:/home/node/app/server
       - ./test:/home/node/app/test
     environment:
-      - NODE_ENV=test
+      - NODE_ENV=development
+      - APP_ENV=test

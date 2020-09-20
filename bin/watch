@@ -5,9 +5,12 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 # Import functions
 . $DIR/_fn
 
-# Go to project root
-cd $DIR
-cd ..
+# # Go to project root
+# cd $DIR
+# cd ..
+
+# Go to current directory
+cd $(pwd)
 
 ok "Watching folders: ${WATCH_FOLDERS}..."
 

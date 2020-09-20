@@ -5,9 +5,8 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 # Import functions
 . $DIR/_fn
 
-# Go to project root
-cd $DIR
-cd ..
+# Go to current directory
+cd $(pwd)
 
 rm -rf node_modules package-lock.json
 npm i

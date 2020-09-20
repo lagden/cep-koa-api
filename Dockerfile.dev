@@ -5,7 +5,7 @@ LABEL autodelete="true"
 LABEL maintainer="docker@lagden.in"
 
 # APP DEV
-FROM node:14.5-alpine3.12
+FROM node:14.11-alpine3.12
 
 LABEL maintainer="docker@lagden.in"
 
@@ -13,16 +13,10 @@ LABEL maintainer="docker@lagden.in"
 ARG ARG_ENTR_INOTIFY_WORKAROUND=1
 ENV ENTR_INOTIFY_WORKAROUND=$ARG_ENTR_INOTIFY_WORKAROUND
 
-ARG NODE_ENV="development"
-ARG APP_ENV="development"
-ARG PORT=3000
-ARG VERSION="dev"
+ARG NODE_ENV="production"
 ARG BASE="/home/node"
 
 ENV NODE_ENV=$NODE_ENV
-ENV APP_ENV=$APP_ENV
-ENV PORT=$PORT
-ENV VERSION=$VERSION
 ENV BASE=$BASE
 ENV BASE_APP=$BASE/app
 
@@ -30,10 +24,13 @@ WORKDIR /usr/local/bin
 COPY --from=entr /usr/local/bin/entr .
 
 WORKDIR $BASE
+
+ADD --chown=node:node . $BASE_APP
+
+WORKDIR $BASE_APP
+
+RUN npm ci --ignore-scripts
+
 USER node
 
 RUN mkdir -p $BASE_APP/data
-COPY . $BASE_APP
-
-WORKDIR $BASE_APP
-RUN npm ci --ignore-scripts
