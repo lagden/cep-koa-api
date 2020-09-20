@@ -1,14 +1,12 @@
 # CEP API
 
-[![Docker Size][docker-img]][docker]
-[![Docker Status][dockerv-img]][dockerv]
-[![Docker Release][dockerelease-img]][dockerelease]
-
 [![Node.js CI][ci-img]][ci]
 [![Build Status][cci-img]][cci]
 [![Coverage Status][coveralls-img]][coveralls]
+
 [![XO code style][xo-img]][xo]
 [![Snyk badge][snyk-img]][snyk]
+[![Docker Release][dockerelease-img]][dockerelease]
 
 [dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-7.1.0
 [dockerelease]:        https://hub.docker.com/r/lagden/cep_consulta
