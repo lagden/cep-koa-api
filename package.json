@@ -12,9 +12,9 @@
     "node": ">= 12"
   },
   "scripts": {
-    "coverage": "nyc --reporter=text-summary --reporter=lcov ava --serial -t -T 30s",
+    "coverage": "nyc --reporter=text-summary --reporter=lcov ava --serial -t",
     "pretest": "xo",
-    "test": "ava --serial -t -T 30s",
+    "test": "ava --serial -t",
     "start": "node server",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
@@ -53,7 +53,8 @@
     "files": [
       "test/**/*",
       "!test/helpers/**/*"
-    ]
+    ],
+    "timeout": "30s"
   },
   "xo": {
     "envs": [
