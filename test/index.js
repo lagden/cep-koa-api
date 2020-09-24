@@ -7,6 +7,7 @@ const app = require('./helpers/server')
 const query = `
 query Consulta($cep: String!) {
   consulta(cep: $cep) {
+    bairro
     endereco: end
     cidade
     uf
@@ -113,4 +114,18 @@ test('500', async t => {
 	const [{message}] = result.body.errors
 	t.is(result.status, 500)
 	t.is(message, 'Must provide Source. Received: undefined.')
+})
+
+test('200 Bairro', async t => {
+	const data = Object.create(null)
+	data.query = query
+	data.variables = {cep: '02226-040'}
+	data.operationName = 'Consulta'
+	const r = await app
+		.post('/gql')
+		.set('content-type', 'application/json')
+		.send(data)
+	const {bairro} = r.body.data.consulta
+	t.is(r.status, 200)
+	t.is(bairro, 'Jardim Brasil (Zona Norte)')
 })

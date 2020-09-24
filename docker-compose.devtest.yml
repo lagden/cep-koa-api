@@ -6,6 +6,8 @@ services:
         npm test
       "
     volumes:
+      - ./bin:/home/node/app/bin
+      - ./server:/home/node/app/server
       - ./test:/home/node/app/test
     environment:
       - NODE_ENV=development

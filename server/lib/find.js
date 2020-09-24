@@ -30,6 +30,7 @@ async function find(_cep) {
 	}
 
 	const result = await consulta(cep)
+	// console.log('-----------> result', result)
 	await db.put(cepBuf, result)
 	return result
 }
