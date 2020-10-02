@@ -26,7 +26,7 @@
     "readme.md"
   ],
   "dependencies": {
-    "@graphql-tools/graphql-file-loader": "6.2.3",
+    "@graphql-tools/graphql-file-loader": "6.2.4",
     "@graphql-tools/load": "6.2.3",
     "@graphql-tools/schema": "6.2.3",
     "@koa/router": "9.4.0",
