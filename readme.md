@@ -7,7 +7,7 @@
 [![XO code style][xo-img]][xo]
 [![Snyk badge][snyk-img]][snyk]
 
-[dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-7.3.0
+[dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-7.4.0
 [dockerelease]:        https://hub.docker.com/r/lagden/cep_consulta
 [ci-img]:              https://github.com/lagden/cep-koa-api/workflows/Node.js%20CI/badge.svg
 [ci]:                  https://github.com/lagden/cep-koa-api/actions?query=workflow%3A%22Node.js+CI%22
