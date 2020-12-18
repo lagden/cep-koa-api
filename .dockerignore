@@ -9,3 +9,5 @@ Dockerfile*
 LICENSE
 license
 *.md
+
+!data/.gitkeep

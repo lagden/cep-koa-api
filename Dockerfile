@@ -20,6 +20,4 @@ RUN npm ci --ignore-scripts
 
 USER node
 
-RUN mkdir -p $BASE_APP/data
-
 CMD ["node", "server"]

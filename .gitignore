@@ -1,7 +1,8 @@
 # App
 docker-compose-*
 .registry-*
-data
+data/*
+!data/.gitkeep
 
 # Logs
 logs
