@@ -9,14 +9,14 @@ ok() {
 }
 
 load_env() {
-	# ENV File
-	ENVFILE_BASE="${CURR_FOLDER}/.env-base"
-	ENVFILE_OPT="${CURR_FOLDER}/.env-${OPT}"
+	_DIR="."
+	ENVFILE_BASE="${1:-$_DIR}/.env-base"
+	ENVFILE_OPT="${1:-$_DIR}/.env-${2:-development}"
 	if test ! -e $ENVFILE_BASE -o ! -e $ENVFILE_OPT; then
 		abort "Environment file not found"
 	fi
 
 	set -a
-	source ${ENVFILE_BASE}
-	source ${ENVFILE_OPT}
+	. ${ENVFILE_BASE}
+	. ${ENVFILE_OPT}
 }

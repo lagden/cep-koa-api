@@ -7,9 +7,9 @@ services:
         NODE_ENV: development
         VERSION: test
     command: ["npm", "test"]
-    volumes:
-      - ./server:/home/node/app/server
-      - ./test:/home/node/app/test
     environment:
-      - NODE_ENV=development
-      - APP_ENV=test
+      NODE_ENV: development
+      APP_ENV: test
+    volumes:
+      - .:/home/node/app
+      - /home/node/app/node_modules

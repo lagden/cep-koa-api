@@ -8,13 +8,13 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [-bd] [-s <service>]
+  Usage: $0 [options]
 
   Options:
-    -b   Build image
-    -d   Run containers in the background
-    -s   Docker compose service name
-    -h   Show usage
+    -b            Build image
+    -d            Run containers in the background
+    -s <service>  Docker compose service name
+    -h            Show usage
 
 EOF
 exit 0
@@ -24,7 +24,7 @@ exit 0
 cd $DIR
 cd ..
 
-CURR_FOLDER=`pwd`
+CURR_FOLDER="$( pwd )"
 BUILD=""
 DAEMON="--abort-on-container-exit"
 OPT="development"
@@ -32,13 +32,10 @@ SERVICE=""
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
-UNAME=$(uname)
-if test $UNAME == 'Linux'; then
-	export ARG_ENTR_INOTIFY_WORKAROUND=0
-else
-	export ARG_ENTR_INOTIFY_WORKAROUND=1
-fi
 export DOCKERFILE="${CURR_FOLDER}/Dockerfile.dev"
+export ARG_ENTR_INOTIFY_WORKAROUND=`test $(uname) = 'Linux' && echo 0 || echo 1`
+export USER_ID="$( id -u )"
+export GROUP_ID="$( id -g )"
 
 while getopts ":bds:" o
 do
@@ -51,7 +48,7 @@ do
 done
 
 # ENV File
-load_env
+load_env $CURR_FOLDER $OPT
 
 docker-compose \
 	-f $COMPOSE_TEMPLATE \
@@ -60,6 +57,7 @@ docker-compose \
 	--force-recreate \
 	--always-recreate-deps \
 	--remove-orphans \
+	--renew-anon-volumes \
 	$BUILD \
 	$DAEMON \
 	$SERVICE

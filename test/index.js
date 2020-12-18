@@ -113,7 +113,7 @@ test('500', async t => {
 
 	const [{message}] = result.body.errors
 	t.is(result.status, 500)
-	t.is(message, 'Must provide Source. Received: undefined.')
+	t.is(message, 'Body must be a string. Received: undefined.')
 })
 
 test('200 Bairro', async t => {

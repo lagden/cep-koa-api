@@ -8,12 +8,12 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [-b] [-s <service>]
+  Usage: $0 [options]
 
   Options:
-    -b   Build image
-    -s   Docker compose service name
-    -h   Show usage
+    -b            Build image
+    -s <service>  Docker compose service name
+    -h            Show usage
 
 EOF
 exit 0
@@ -23,7 +23,7 @@ exit 0
 cd $DIR
 cd ..
 
-CURR_FOLDER=`pwd`
+CURR_FOLDER="$( pwd )"
 BUILD=""
 SERVICE="app"
 OPT="test"
@@ -32,6 +32,8 @@ COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 COMPOSE_TEST="${CURR_FOLDER}/docker-compose.devtest.yml"
 
 export DOCKERFILE="${CURR_FOLDER}/Dockerfile"
+export USER_ID="$( id -u )"
+export GROUP_ID="$( id -g )"
 
 _cleanup() {
 	docker-compose \
@@ -55,7 +57,7 @@ do
 done
 
 # ENV File
-load_env
+load_env $CURR_FOLDER $OPT
 
 docker-compose \
 	-f $COMPOSE_TEMPLATE \
@@ -67,6 +69,7 @@ docker-compose \
 	--abort-on-container-exit \
 	--exit-code-from $SERVICE \
 	--remove-orphans \
+	--renew-anon-volumes \
 	$BUILD \
 	$SERVICE
 

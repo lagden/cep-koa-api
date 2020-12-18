@@ -6,7 +6,8 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 . $DIR/_fn
 
 # Go to current directory
-cd $(pwd)
+CURR_FOLDER="$( pwd )"
+cd $CURR_FOLDER
 
 rm -rf node_modules package-lock.json
 npm i

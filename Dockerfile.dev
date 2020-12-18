@@ -4,8 +4,8 @@ FROM lagden/entr:4.6-alpine3.12 as entr
 LABEL autodelete="true"
 LABEL maintainer="docker@lagden.in"
 
-# APP DEV
-FROM node:14.11-alpine3.12
+# APP Dev
+FROM node:14.15-alpine3.12
 
 LABEL maintainer="docker@lagden.in"
 

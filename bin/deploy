@@ -8,12 +8,12 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [-i] -e <staging|production>
+  Usage: $0 [options]
 
   Options:
-    -i   Ignore build image
-    -e   Environment
-    -h   Show usage
+    -i                       Ignore build image
+    -e <staging|production>  Environment
+    -h                       Show usage
 
 EOF
 exit 0
@@ -23,9 +23,9 @@ exit 0
 cd $DIR
 cd ..
 
-CURR_FOLDER=`pwd`
+CURR_FOLDER="$( pwd )"
 BUILD=1
-# OPT="staging"
+OPT="staging"
 
 while getopts ":ie:" o
 do
@@ -36,22 +36,27 @@ do
 	esac
 done
 
-if test -z ${OPT}; then
-	abort "Missing environment"
-fi
+# if test -z ${OPT}; then
+# 	abort "Missing environment"
+# fi
 
 # ENV File
-load_env
+load_env $CURR_FOLDER $OPT
 
 if test -z ${DEPLOY_FOLDER}; then
-	abort "DEPLOY_FOLDER not found..."
-	exit 1
+	abort "Missing DEPLOY_FOLDER"
 fi
 
 # BUILD IMAGE and PUSH
 if test $BUILD == 1; then
 	$CURR_FOLDER/bin/image -e $OPT
 	test $? -ne 0 && abort "Image build fail" || ok "Image build done"
+fi
+
+# ENVSUBST
+ENVSUBST_FILE="$( which envsubst )"
+if test ! -f ${ENVSUBST_FILE}; then
+	abort "Missing envsubst"
 fi
 
 # Criando docker-compose
@@ -71,5 +76,5 @@ cd $DEPLOY_FOLDER
 exit 0
 EOF
 
-ok 'Yeahh!!'
+ok 'Oh Yeahh!!'
 exit 0

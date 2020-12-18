@@ -5,17 +5,64 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 # Import functions
 . $DIR/_fn
 
-# # Go to project root
+usage() {
+	cat <<-EOF
+
+  Usage: $0 [options]
+
+  Options:
+    -e <development|staging|production>  Environment
+    -h                                   Show usage
+
+EOF
+exit 0
+}
+
+# Go to project root
 # cd $DIR
 # cd ..
 
 # Go to current directory
-cd $(pwd)
+CURR_FOLDER="$( pwd )"
+cd $CURR_FOLDER
 
-ok "Watching folders: ${WATCH_FOLDERS}..."
+OPT=development
 
-while true; do
-	find ${WATCH_FOLDERS} -type f | entr -nrd ${WATCH_CMD}
+while getopts ":e:" o
+do
+	case ${o} in
+		e) OPT=$OPTARG ;;
+		*) usage ;;
+	esac
 done
+
+# ENV File
+if test $OPT; then
+	load_env $CURR_FOLDER $OPT
+else
+	ok "Running without any env."
+fi
+
+ok "Watching folders: ${WATCH_FOLDERS}"
+ok "Ignoring folders: ${WATCH_IGNORES}"
+ok "Running cmd: ${WATCH_CMD}"
+
+ENTR_FILE="$( which entr )"
+
+if test -f ${ENTR_FILE}; then
+	find ${WATCH_FOLDERS} -type f | entr -r ${WATCH_CMD}
+else
+	$(${WATCH_CMD})
+fi
+
+# if test -f ${ENTR_FILE}; then
+# 	if test -z "${WATCH_IGNORES}"; then
+# 		find ${WATCH_FOLDERS} -type f | entr -r ${WATCH_CMD}
+# 	else
+# 		find ${WATCH_FOLDERS} -type f -not -path "${WATCH_IGNORES}" | entr -r ${WATCH_CMD}
+# 	fi
+# else
+# 	$(${WATCH_CMD})
+# fi
 
 exit 0

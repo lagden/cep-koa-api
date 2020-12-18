@@ -1,14 +1,4 @@
 version: "3.7"
 services:
   app:
-    command: >
-      /bin/ash -c "
-        npm test
-      "
-    volumes:
-      - ./bin:/home/node/app/bin
-      - ./server:/home/node/app/server
-      - ./test:/home/node/app/test
-    environment:
-      - NODE_ENV=development
-      - APP_ENV=test
+    command: ["npm", "test"]

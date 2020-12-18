@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "7.3.1",
+  "version": "7.4.0",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre os endereços através do CEP",
   "keywords": [
@@ -26,28 +26,28 @@
     "readme.md"
   ],
   "dependencies": {
-    "@graphql-tools/graphql-file-loader": "6.2.3",
-    "@graphql-tools/load": "6.2.3",
-    "@graphql-tools/schema": "6.2.3",
-    "@koa/router": "9.4.0",
-    "@tadashi/cep": "1.9.1",
+    "@graphql-tools/graphql-file-loader": "6.2.6",
+    "@graphql-tools/load": "6.2.5",
+    "@graphql-tools/schema": "7.1.2",
+    "@koa/router": "10.0.0",
+    "@tadashi/cep": "1.10.0",
     "@tadashi/koa-base": "3.16.0",
-    "debug": "4.3.0",
-    "graphql": "15.3.0",
+    "debug": "4.3.1",
+    "graphql": "15.4.0",
     "koa-bodyparser": "4.3.0",
     "koa-compose": "4.1.0",
     "level": "6.0.1",
     "lodash.merge": "4.6.2",
-    "snyk": "1.400.0",
-    "supports-color": "7.2.0"
+    "snyk": "1.437.2",
+    "supports-color": "8.1.0"
   },
   "devDependencies": {
     "@tadashi/hex-id": "2.0.0",
-    "ava": "3.12.1",
-    "hash-to-port": "1.1.0",
+    "ava": "3.14.0",
+    "hash-to-port": "1.2.0",
     "nyc": "15.1.0",
-    "supertest": "4.0.2",
-    "xo": "0.33.1"
+    "supertest": "6.0.1",
+    "xo": "0.36.1"
   },
   "ava": {
     "files": [
@@ -70,7 +70,8 @@
       ],
       "capitalized-comments": 0,
       "padding-line-between-statements": 0,
-      "require-atomic-updates": 0
+      "require-atomic-updates": 0,
+      "unicorn/import-style": 0
     }
   },
   "license": "MIT",

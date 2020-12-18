@@ -9,13 +9,13 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 cd $DIR
 cd ..
 
-CURR_FOLDER=`pwd`
+CURR_FOLDER="$( pwd )"
 OPT="development"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
 # ENV File
-load_env
+load_env $CURR_FOLDER $OPT
 
 docker-compose \
 	-f $COMPOSE_TEMPLATE \
@@ -25,7 +25,5 @@ docker-compose \
 	--remove-orphans
 
 test $? -ne 0 && abort "Docker Compose Failed" || ok "Stopped"
-
-# docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")
 
 exit 0
