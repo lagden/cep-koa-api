@@ -16,7 +16,24 @@ services:
       - ${PORT_PUBLISHED}:${PORT}
     volumes:
       - api_data:/home/node/app/data
+    networks:
+      - net
+    deploy:
+      replicas: ${DEPLOY_REPLICAS}
+      resources:
+        limits:
+          cpus: ${DEPLOY_RESOURCES_LIMITS_CPUS}
+          memory: ${DEPLOY_RESOURCES_LIMITS_MEMORY}
+        reservations:
+          cpus: ${DEPLOY_RESERVATIONS_LIMITS_CPUS}
+          memory: ${DEPLOY_RESERVATIONS_LIMITS_MEMORY}
+      restart_policy:
+        condition: on-failure
+
+networks:
+  net:
+    name: ${NETWORK_NAME}
 
 volumes:
   api_data:
-    name: ${VOL_NAME}_api
+    name: ${VOL_NAME}_db

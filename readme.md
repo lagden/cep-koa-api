@@ -44,7 +44,7 @@ $ bin/start -bd
 $ bin/stop
 ```
 
-Termina todos os containers que estão rodando.
+Finaliza todos os containers que estão rodando.
 
 
 ### Local

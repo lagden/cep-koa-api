@@ -4,12 +4,8 @@ const consulta = require('@tadashi/cep')
 const debug = require('./debug')
 const db = require('./db')
 
-function _cleanup(cep) {
-	return cep.replace(/\D/, '')
-}
-
 async function find(_cep) {
-	const cep = _cleanup(_cep)
+	const cep = _cep.replace(/\D/, '')
 	const cepBuf = Buffer.from(cep)
 
 	debug.log('level --> db.isOpen()', db.isOpen())
@@ -30,7 +26,7 @@ async function find(_cep) {
 	}
 
 	const result = await consulta(cep)
-	// console.log('-----------> result', result)
+	// debug.log('-----------> result', result)
 	await db.put(cepBuf, result)
 	return result
 }

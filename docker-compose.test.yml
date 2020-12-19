@@ -8,5 +8,8 @@ services:
         VERSION: test
     command: ["npm", "test"]
     volumes:
-      - .:/home/node/app
-      - /home/node/app/node_modules
+      - api_data:/home/node/app/data
+
+volumes:
+  api_data:
+    name: cepkoa_vol_test_db
