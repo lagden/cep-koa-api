@@ -69,31 +69,39 @@ docker pull lagden/cep_consulta
 Exemplo de um `docker-compose.yml`
 
 ```yaml
-version: '3.7'
-
+version: "3.7"
 services:
-  api:
+  app:
     image: lagden/cep_consulta:latest
     command: ["node", "server"]
     environment:
       NODE_ENV: production
-      PORT: 3000
-      DEBUG: cepkoa:error,cepkoa:info
+      PORT: 30008
+      PORT_PUBLISHED: 30008
+      DEBUG: cepkoa:error
       DEBUG_PREFIX: cepkoa
       DEBUG_COLORS: 1
       DEBUG_HIDE_DATE: 0
+      VERSION: 7.4.0
     ports:
-      - 30008:3000
+      - 30008:30008
     volumes:
       - data:/home/node/app/data
     deploy:
       replicas: 1
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 200M
+        reservations:
+          cpus: '0.25'
+          memory: 100M
       restart_policy:
         condition: on-failure
 
 volumes:
   data:
-    name: cep_consulta_node_data
+    name: cep_consulta_vol_production_db
 ```
 
 

@@ -9,8 +9,8 @@ services:
     command: ["npm", "test"]
     volumes:
       - ./test:/home/node/app/test
-      - api_data:/home/node/app/data
+      - data:/home/node/app/data
 
 volumes:
-  api_data:
+  data:
     name: cepkoa_vol_test_db
