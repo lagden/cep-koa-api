@@ -38,7 +38,7 @@
     "koa-compose": "4.1.0",
     "level": "6.0.1",
     "lodash.merge": "4.6.2",
-    "snyk": "1.437.2",
+    "snyk": "1.685.0",
     "supports-color": "8.1.0"
   },
   "devDependencies": {
