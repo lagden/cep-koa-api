@@ -1,4 +1,8 @@
 version: "3.7"
 services:
   app:
-    command: ["npm", "test"]
+    command: >
+      /bin/ash -c "
+        bin/helper/wait ${REDIS_HOST}:${REDIS_PORT};
+        ${TEST_CMD}
+      "

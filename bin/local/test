@@ -1,0 +1,35 @@
+#!/bin/sh
+
+DIR="$(cd $(dirname $0) && pwd)"
+BIN_DIR="$(cd $DIR/.. && pwd)"
+
+# Import functions
+. $BIN_DIR/helper/fn
+
+UPDATE_SNAPSHOT=""
+while getopts ":u" o
+do
+	case ${o} in
+		u) UPDATE_SNAPSHOT="-- -u" ;;
+		\?) abort "Invalid option"
+	esac
+done
+
+# Go to current directory
+CURR_FOLDER="$(pwd)"
+cd $CURR_FOLDER
+
+OPT="test"
+
+# ENV File
+load_env $OPT
+
+# Generate ENVs for frontend application
+if test "${REQUIRE_GEN:-0}" = "1"; then
+	gen_env "${CURR_FOLDER}/resource/env.js"
+fi
+
+CMD="${TEST_CMD} ${UPDATE_SNAPSHOT}"
+$CMD
+
+exit 0

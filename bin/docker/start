@@ -1,9 +1,10 @@
 #!/bin/bash
 
-DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+DIR="$(cd $(dirname $0) && pwd)"
+BIN_DIR="$(cd $DIR/.. && pwd)"
 
 # Import functions
-. $DIR/_fn
+. $BIN_DIR/helper/fn
 
 usage() {
 	cat <<-EOF
@@ -20,22 +21,16 @@ EOF
 exit 0
 }
 
-# Go to project root
-cd $DIR
-cd ..
+# Go to current directory
+CURR_FOLDER="$(pwd)"
+cd $CURR_FOLDER
 
-CURR_FOLDER="$( pwd )"
 BUILD=""
+SERVICE=""
 DAEMON="--abort-on-container-exit"
 OPT="development"
-SERVICE=""
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
-
-export DOCKERFILE="${CURR_FOLDER}/Dockerfile.dev"
-export ARG_ENTR_INOTIFY_WORKAROUND=`test $(uname) = 'Linux' && echo 0 || echo 1`
-export USER_ID="$( id -u )"
-export GROUP_ID="$( id -g )"
 
 while getopts ":bds:" o
 do
@@ -48,9 +43,14 @@ do
 done
 
 # ENV File
-load_env $CURR_FOLDER $OPT
+load_env $OPT
 
-docker-compose \
+# Generate ENVs for frontend application
+if test "${REQUIRE_GEN:-0}" = "1"; then
+	gen_env "${CURR_FOLDER}/resource/env.js"
+fi
+
+docker compose \
 	-f $COMPOSE_TEMPLATE \
 	-f $COMPOSE_LOCAL \
 	up \
@@ -61,5 +61,7 @@ docker-compose \
 	$BUILD \
 	$DAEMON \
 	$SERVICE
+
+test $? -ne 0 && abort "Docker Compose up failed" || ok "Stopped gracefully"
 
 exit 0

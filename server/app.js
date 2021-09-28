@@ -1,14 +1,12 @@
-'use strict'
-
-const base = require('@tadashi/koa-base')
-const routes = require('./routes')
-const debug = require('./lib/debug')
+import base from '@tadashi/koa-base'
+import routes from './routes/index.js'
+import * as debug from './lib/debug.js'
 
 const app = base({
 	error: true,
 	cors: {
-		credentials: true
-	}
+		credentials: true,
+	},
 })
 
 app
@@ -17,4 +15,4 @@ app
 
 app.proxy = true
 
-module.exports = app
+export default app

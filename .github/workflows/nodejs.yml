@@ -14,19 +14,43 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [14.x]
+
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: --entrypoint redis-server
 
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: npm ci
-      - run: npm run coverage
+      - name: Update yarn
+        run: yarn set version berry
+
+      - name: Log yarn version
+        run: yarn --version
+
+      - name: Generate simple .yarnrc.yml
+        run: |
+          echo "nodeLinker: node-modules" >> .yarnrc.yml
+
+      - name: Install dependencies
+        run: yarn install
         env:
           CI: true
+      
+      - name: Run test
+        run: npm test
+        env:
+          CI: true
+          REDIS: 127.0.0.1:${{ job.services.redis.ports[6379] }}
 
       - name: Coveralls
         uses: coverallsapp/github-action@master

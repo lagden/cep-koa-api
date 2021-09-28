@@ -4,55 +4,19 @@
 [![Node.js CI][ci-img]][ci]
 [![Coverage Status][coveralls-img]][coveralls]
 
-[![XO code style][xo-img]][xo]
 [![Snyk badge][snyk-img]][snyk]
 
-[dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-7.4.0
+[dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-8.0.0
 [dockerelease]:        https://hub.docker.com/r/lagden/cep_consulta
-[ci-img]:              https://github.com/lagden/cep-koa-api/workflows/Node.js%20CI/badge.svg
-[ci]:                  https://github.com/lagden/cep-koa-api/actions?query=workflow%3A%22Node.js+CI%22
+[ci-img]:              https://github.com/lagden/cep-koa-api/actions/workflows/nodejs.yml/badge.svg
+[ci]:                  https://github.com/lagden/cep-koa-api/actions/workflows/nodejs.yml
 [coveralls-img]:       https://coveralls.io/repos/github/lagden/cep-koa-api/badge.svg?branch=master
 [coveralls]:           https://coveralls.io/github/lagden/cep-koa-api?branch=master
-[xo-img]:              https://img.shields.io/badge/code_style-XO-5ed9c7.svg
-[xo]:                  https://github.com/sindresorhus/xo
 [snyk-img]:            https://snyk.io/test/github/lagden/cep-koa-api/badge.svg
 [snyk]:                https://snyk.io/test/github/lagden/cep-koa-api
 
 
 Encontre os endereços através do CEP.
-
-
-## Desenvolvimento
-
-Existem duas maneiras de trabalhar no desenvolvimento desse projeto:
-
-- Via Docker
-- Local
-
-
-### Via Docker
-
-```
-$ bin/start -bd
-```
-
-- `-b` para construir (build) a imagem
-- `-d` para rodar em background (daemon)
-
-
-```
-$ bin/stop
-```
-
-Finaliza todos os containers que estão rodando.
-
-
-### Local
-
-```
-$ npm i
-$ npm start
-```
 
 
 ## Docker
@@ -71,23 +35,50 @@ Exemplo de um `docker-compose.yml`
 ```yaml
 version: "3.7"
 services:
+  redis:
+    image: redis:6-alpine
+    command: >
+      --appendonly yes
+    networks:
+      - net
+    volumes:
+      - db:/data
+    deploy:
+      restart_policy:
+        condition: on-failure
+
   app:
-    image: lagden/cep_consulta:latest
-    command: ["node", "server"]
+    image: docker.io/lagden/cep_consulta:1.0.0
+    command: >
+      /bin/ash -c "
+        bin/helper/wait redis:6379;
+        node server
+      "
     environment:
+      DEBUG_HIDE_DATE: 0
+      DEBUG_COLORS: 1
+      DEBUG_PREFIX: cepkoa
+      DEBUG: cepkoa:error
       NODE_ENV: production
+      APP_ENV: production
+      APP_NS: cepkoa
       PORT: 30008
       PORT_PUBLISHED: 30008
-      DEBUG: cepkoa:error
-      DEBUG_PREFIX: cepkoa
-      DEBUG_COLORS: 1
-      DEBUG_HIDE_DATE: 0
-      VERSION: 7.4.0
+      VERSION: 1.0.0
+      #
+      CACHE_REDIS_NAMESPACE: cepkoa
+      CACHE_REDIS_DB: 0
+      CLEAR_CACHE_FIRST_RUN: 0
+      #
+      REDIS: redis:6379
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     ports:
       - 30008:30008
-    volumes:
-      - data:/home/node/app/data
+    networks:
+      - net
     deploy:
+      mode: replicated
       replicas: 1
       resources:
         limits:
@@ -99,9 +90,14 @@ services:
       restart_policy:
         condition: on-failure
 
+networks:
+  net:
+    name: cepkoa_net_production
+
 volumes:
-  data:
-    name: cep_consulta_vol_production_db
+  db:
+    name: cepkoa_vol_production_db
+
 ```
 
 
@@ -149,4 +145,4 @@ curl 'https://service.exemplo.com.br/cep/v1/gql' \
 
 ## License
 
-MIT © [Thiago Lagden](http://lagden.in)
+MIT © [Thiago Lagden](https://github.com/lagden)

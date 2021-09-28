@@ -1,18 +1,26 @@
-'use strict'
-
-const {stdout} = process
-const app = require('./app')
+import process from 'node:process'
+import la from 'local-access'
+import app from './app.js'
+import * as debug from './lib/debug.js'
 
 const {
-	PORT = 3000,
-	PORT_PUBLISHED = 3000
+	PORT = 5000,
+	PORT_PUBLISHED = 5000,
+	HOSTNAME = '0.0.0.0',
+	HOSTNAME_CUSTOM,
+	VERSION = 'dev',
 } = process.env
 
-const PAD = '  '
+const {
+	local,
+	network,
+} = la({port: PORT_PUBLISHED, hostname: HOSTNAME_CUSTOM ?? HOSTNAME})
 
 app.listen(PORT, () => {
-	stdout.write('Server is running!\n')
-	stdout.write('------------------\n\n')
-	stdout.write(PAD + `- Local:      http://127.0.0.1:${PORT}\n`)
-	stdout.write(PAD + `- Network:    http://127.0.0.1:${PORT_PUBLISHED}\n`)
+	debug.info('Server listening')
+	debug.info('----------------')
+	debug.info(`Local:    ${local}`)
+	debug.info(`Network:  ${network}`)
+	debug.info('----------------')
+	debug.info(`Version:  ${VERSION}`)
 })

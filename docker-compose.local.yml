@@ -1,20 +1,20 @@
 version: "3.7"
 services:
   app:
-    tty: true
     build:
-      dockerfile: ${DOCKERFILE}
       context: ./
+      target: dev
       args:
         NODE_ENV: ${NODE_ENV}
-        ARG_ENTR_INOTIFY_WORKAROUND: ${ARG_ENTR_INOTIFY_WORKAROUND:-1}
     command: >
       /bin/ash -c "
-        bin/watch
+        bin/helper/wait ${REDIS_HOST}:${REDIS_PORT};
+        bin/docker/watch
       "
     environment:
-      WATCH_FOLDERS: "${WATCH_FOLDERS}"
       WATCH_CMD: "${WATCH_CMD}"
+      HOSTNAME_CUSTOM: "${HOSTNAME_CUSTOM}"
     volumes:
       - .:/home/node/app
       - /home/node/app/node_modules
+      - /home/node/app/.yarn

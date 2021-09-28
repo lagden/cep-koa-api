@@ -1,13 +1,19 @@
 .*
-bin
 coverage
-data/*
 node_modules
 test
-docker-compose*.yml
+
+docker-compose*
 Dockerfile*
+
 LICENSE
 license
-*.md
+readme.md
+README.md
+stuff*.md
 
-!data/.gitkeep
+!.eslintrc.yml
+!.eslintrc.js
+!.eslintrc.cjs
+!.gitignore
+!.yarnrc.yml

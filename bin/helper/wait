@@ -3,18 +3,18 @@
 : ${SLEEP_LENGTH:=2}
 : ${TIMEOUT_LENGTH:=60}
 
-DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+DIR="$(cd $(dirname $0) && pwd)"
+BIN_DIR="$(cd $DIR/.. && pwd)"
 
 # Import functions
-. $DIR/_fn
+. $BIN_DIR/helper/fn
 
 wait_for() {
-	START="$( date +%s )"
+	START="$(date +%s)"
 	echo "Waiting for $1 to listen on $2..."
-	while ! nc -z $1 $2;
-		do
+	while ! nc -z $1 $2; do
 		if [ $(($(date +%s) - $START)) -gt $TIMEOUT_LENGTH ]; then
-				abort "Service $1:$2 did not start within $TIMEOUT_LENGTH seconds. Aborting..."
+			abort "Service $1:$2 did not start within $TIMEOUT_LENGTH seconds. Aborting..."
 		fi
 		echo "sleeping"
 		sleep $SLEEP_LENGTH

@@ -1,24 +1,51 @@
 version: "3.7"
 services:
+  redis:
+    image: redis:6-alpine
+    command: >
+      --appendonly yes
+      --requirepass ${REDIS_PWD}
+    networks:
+      - net
+    volumes:
+      - db:/data
+    deploy:
+      restart_policy:
+        condition: on-failure
+
   app:
     image: ${REGISTRY}/${IMAGE}:${VERSION}
-    command: ["node", "server"]
+    command: >
+      /bin/ash -c "
+        bin/helper/wait ${REDIS_HOST}:${REDIS_PORT};
+        node server
+      "
     environment:
+      DEBUG_HIDE_DATE: ${DEBUG_HIDE_DATE}
+      DEBUG_COLORS: ${DEBUG_COLORS}
+      DEBUG_PREFIX: ${DEBUG_PREFIX}
+      DEBUG: ${DEBUG}
       NODE_ENV: ${NODE_ENV}
+      APP_ENV: ${APP_ENV}
+      APP_NS: ${APP_NS}
       PORT: ${PORT}
       PORT_PUBLISHED: ${PORT_PUBLISHED}
-      DEBUG: ${DEBUG}
-      DEBUG_PREFIX: ${DEBUG_PREFIX}
-      DEBUG_COLORS: ${DEBUG_COLORS}
-      DEBUG_HIDE_DATE: ${DEBUG_HIDE_DATE}
       VERSION: ${VERSION}
+      #
+      CACHE_REDIS_NAMESPACE: ${CACHE_REDIS_NAMESPACE}
+      CACHE_REDIS_DB: ${CACHE_REDIS_DB}
+      CLEAR_CACHE_FIRST_RUN: ${CLEAR_CACHE_FIRST_RUN}
+      #
+      REDIS: ${REDIS}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PWD: ${REDIS_PWD}
     ports:
       - ${PORT_PUBLISHED}:${PORT}
-    volumes:
-      - api_data:/home/node/app/data
     networks:
       - net
     deploy:
+      mode: replicated
       replicas: ${DEPLOY_REPLICAS}
       resources:
         limits:
@@ -35,5 +62,5 @@ networks:
     name: ${NETWORK_NAME}
 
 volumes:
-  api_data:
+  db:
     name: ${VOL_NAME}_db
