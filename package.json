@@ -27,7 +27,7 @@
     "prepare": "npm run snyk-protect"
   },
   "dependencies": {
-    "@graphql-tools/graphql-file-loader": "7.1.0",
+    "@graphql-tools/graphql-file-loader": "7.2.0",
     "@graphql-tools/load": "7.3.2",
     "@graphql-tools/schema": "8.2.0",
     "@koa/router": "10.1.1",
