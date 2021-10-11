@@ -54,7 +54,7 @@ docker build \
 	--compress \
 	--force-rm \
 	--no-cache . \
-	--tag $TAG_IMAGE
+	--tag $TAG_IMAGE \
 	--tag $TAG_IMAGE_LATEST
 
 test $? -ne 0 && abort "Falha no build da image --> ${TAG_IMAGE}" || ok "Build image ok --> ${TAG_IMAGE}"
