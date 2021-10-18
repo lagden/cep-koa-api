@@ -37,9 +37,9 @@ jobs:
       - name: Log yarn version
         run: yarn --version
 
-      - name: Generate simple .yarnrc.yml
-        run: |
-          echo "nodeLinker: node-modules" >> .yarnrc.yml
+      # - name: Generate simple .yarnrc.yml
+      #   run: |
+      #     echo "nodeLinker: node-modules" >> .yarnrc.yml
 
       - name: Install dependencies
         run: yarn install
