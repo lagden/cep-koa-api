@@ -32,17 +32,18 @@ docker pull lagden/cep_consulta
 
 ## Via Docker
 
-Exemplo via Docker.
+Exemplo utilizando `docker run`.
 
 ```
-docker run --name cep-redis --network cep-network -d redis:6-alpine
-docker run --name cep --network cep-network --host cep-redis -d lagden/cep_consulta:latest
+docker network create cep-network
+docker run --network cep-network --name cep-redis -d redis:6-alpine
+docker run --network cep-network --name cep -p 30008:5000 --env REDIS=cep-redis:6379 -d lagden/cep_consulta:latest
 ```
 
 
 ## Via Compose
 
-Exemplo de um `docker-compose.yml`
+Exemplo de um `yaml` para ser utilizando com o `docker compose` ou `docker stack deploy`.
 
 ```yaml
 version: "3.7"
@@ -60,7 +61,7 @@ services:
         condition: on-failure
 
   app:
-    image: docker.io/lagden/cep_consulta:release-8.1.0
+    image: docker.io/lagden/cep_consulta:latest
     command: >
       /bin/ash -c "
         bin/helper/wait redis:6379;
@@ -109,23 +110,9 @@ volumes:
 
 ## Uso
 
-Endpoint: https://service.exemplo.com.br/cep/v1/gql
-
-
-```graphql
-query Consulta($cep: String!) {
-  consulta(cep: $cep) {
-    endereco
-    bairro
-    cidade
-    uf
-  }
-}
-```
-
 
 ```shell
-curl 'https://service.exemplo.com.br/cep/v1/gql' \
+curl 'http://127.0.0.1:30008/gql' \
 -H 'content-type: application/json' \
 -d '{
   "source": "query Consulta($cep: String!) { consulta(cep: $cep) { endereco, bairro, cidade, uf } }",
