@@ -9,10 +9,10 @@ async function consulta(_root, {cep: code}) {
 		return fromCache
 	}
 
-	const res = await cep(code)
-	await caching(code, res)
+	const response = await cep(code)
+	await caching(code, response)
 
-	return res
+	return response
 }
 
 const Query = {

@@ -9,7 +9,7 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [options]
+  Usage: $0 [options...]
 
   Options:
     -b            Build image
@@ -29,7 +29,7 @@ SERVICE="app"
 OPT="test"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
-COMPOSE_TEST="${CURR_FOLDER}/docker-compose.devtest.yml"
+COMPOSE_TEST="${CURR_FOLDER}/docker-compose.test.yml"
 
 _cleanup() {
 	docker compose \
@@ -43,12 +43,13 @@ _cleanup() {
 
 trap '_cleanup; abort "Tests failed for unexpected reasons"' HUP INT QUIT PIPE TERM SIGINT SIGTERM
 
-while getopts ":bs:" o
+while getopts "bs:h" o
 do
 	case ${o} in
 		b) BUILD="--build" ;;
 		s) SERVICE=$OPTARG ;;
-		*) usage ;;
+		h) usage ;;
+		\?) usage ;;
 	esac
 done
 

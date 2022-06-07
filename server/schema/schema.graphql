@@ -2,16 +2,14 @@
 Dados de retorno da consulta
 """
 type Dados {
-  cep: String
-  end: String
-  complemento: String
-  complemento2: String
   bairro: String
+  cep: String
   cidade: String
-  uf: String
-  id: String
-  success: Boolean
+  complemento: String
+  endereco: String
   status: Int
+  success: Boolean
+  uf: String
 }
 
 """

@@ -32,10 +32,12 @@ rules:
   spaced-comment: off
   padding-line-between-statements: off
   no-undef-init: off
+  # no-unused-vars: off
   unicorn/filename-case: off
   unicorn/prevent-abbreviations: off
   unicorn/no-reduce: off
   unicorn/no-array-reduce: off
+  # unicorn/no-array-method-this-argument: off
   # unicorn/no-abusive-eslint-disable: off
   # Bug no ctx.body Koa
   require-atomic-updates: off

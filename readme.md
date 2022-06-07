@@ -3,10 +3,9 @@
 [![Docker Release][dockerelease-img]][dockerelease]
 [![Node.js CI][ci-img]][ci]
 [![Coverage Status][coveralls-img]][coveralls]
-
 [![Snyk badge][snyk-img]][snyk]
 
-[dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-8.0.0
+[dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-8.1.0
 [dockerelease]:        https://hub.docker.com/r/lagden/cep_consulta
 [ci-img]:              https://github.com/lagden/cep-koa-api/actions/workflows/nodejs.yml/badge.svg
 [ci]:                  https://github.com/lagden/cep-koa-api/actions/workflows/nodejs.yml
@@ -27,8 +26,22 @@ Essa API está disponível Docker Hub: https://hub.docker.com/r/lagden/cep_consu
 docker pull lagden/cep_consulta
 ```
 
+⚠️ **Importante**
 
-### Docker Compose
+[Redis](https://redis.io/) é requirido.
+
+
+### Via Docker
+
+Exemplo via Docker.
+
+```
+docker run --name cep-redis --network cep-network -d redis:6-alpine
+docker run --name cep --network cep-network --host cep-redis -d lagden/cep_consulta:latest
+```
+
+
+### Via Compose
 
 Exemplo de um `docker-compose.yml`
 
@@ -48,7 +61,7 @@ services:
         condition: on-failure
 
   app:
-    image: docker.io/lagden/cep_consulta:1.0.0
+    image: docker.io/lagden/cep_consulta:release-8.1.0
     command: >
       /bin/ash -c "
         bin/helper/wait redis:6379;
@@ -57,16 +70,16 @@ services:
     environment:
       DEBUG_HIDE_DATE: 0
       DEBUG_COLORS: 1
-      DEBUG_PREFIX: cepkoa
-      DEBUG: cepkoa:error
+      DEBUG_PREFIX: lagden_cep_consulta
+      DEBUG: lagden_cep_consulta:error
       NODE_ENV: production
       APP_ENV: production
-      APP_NS: cepkoa
+      APP_NS: lagden_cep_consulta
       PORT: 30008
       PORT_PUBLISHED: 30008
-      VERSION: 1.0.0
+      VERSION: release-8.1.0
       #
-      CACHE_REDIS_NAMESPACE: cepkoa
+      CACHE_REDIS_NAMESPACE: lagden_cep_consulta
       CACHE_REDIS_DB: 0
       CLEAR_CACHE_FIRST_RUN: 0
       #
@@ -78,26 +91,20 @@ services:
     networks:
       - net
     deploy:
-      mode: replicated
-      replicas: 1
       resources:
         limits:
           cpus: '0.50'
           memory: 200M
-        reservations:
-          cpus: '0.25'
-          memory: 100M
       restart_policy:
         condition: on-failure
 
 networks:
   net:
-    name: cepkoa_net_production
+    name: lagden_cep_consulta_net_production
 
 volumes:
   db:
-    name: cepkoa_vol_production_db
-
+    name: lagden_cep_consulta_vol_production_db
 ```
 
 
@@ -109,7 +116,7 @@ Endpoint: https://service.exemplo.com.br/cep/v1/gql
 ```graphql
 query Consulta($cep: String!) {
   consulta(cep: $cep) {
-    endereco: end
+    endereco
     bairro
     cidade
     uf
@@ -122,8 +129,8 @@ query Consulta($cep: String!) {
 curl 'https://service.exemplo.com.br/cep/v1/gql' \
 -H 'content-type: application/json' \
 -d '{
-  "query": "query Consulta($cep: String!) { consulta(cep: $cep) { endereco: end, bairro, cidade, uf } }",
-  "variables": {"cep": "01311-000"},
+  "source": "query Consulta($cep: String!) { consulta(cep: $cep) { endereco, bairro, cidade, uf } }",
+  "variableValues": {"cep": "01311-000"},
   "operationName": "Consulta"
 }' --compressed
 ```

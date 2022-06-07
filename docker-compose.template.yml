@@ -45,15 +45,10 @@ services:
     networks:
       - net
     deploy:
-      mode: replicated
-      replicas: ${DEPLOY_REPLICAS}
       resources:
         limits:
           cpus: ${DEPLOY_RESOURCES_LIMITS_CPUS}
           memory: ${DEPLOY_RESOURCES_LIMITS_MEMORY}
-        reservations:
-          cpus: ${DEPLOY_RESERVATIONS_LIMITS_CPUS}
-          memory: ${DEPLOY_RESERVATIONS_LIMITS_MEMORY}
       restart_policy:
         condition: on-failure
 

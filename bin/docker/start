@@ -9,7 +9,7 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [options]
+  Usage: $0 [options...]
 
   Options:
     -b            Build image
@@ -32,13 +32,14 @@ OPT="development"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
-while getopts ":bds:" o
+while getopts "bds:h" o
 do
 	case ${o} in
 		b) BUILD="--build" ;;
 		d) DAEMON="-d" ;;
 		s) SERVICE=$OPTARG ;;
-		*) usage ;;
+		h) usage ;;
+		\?) usage ;;
 	esac
 done
 

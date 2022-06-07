@@ -1,28 +1,7 @@
-version: "3.6"
+version: "3.7"
 services:
-  redis:
-    image: redis:6-alpine
-    command: >
-      --appendonly yes
-    networks:
-      - net
-
-  sut:
-    build:
-      context: ./
-      target: dev
-      args:
-        NODE_ENV: development
-        VERSION: test
+  app:
     command: >
       /bin/ash -c "
-        bin/helper/wait ${REDIS_HOST}:${REDIS_PORT};
-        bin/docker/watch
+        ${TEST_CMD}
       "
-    environment:
-      REDIS_HOST: "redis"
-      REDIS_PORT: "6379"
-    volumes:
-      - .:/home/node/app
-      - /home/node/app/node_modules
-      - /home/node/app/.yarn

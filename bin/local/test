@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DIR="$(cd $(dirname $0) && pwd)"
 BIN_DIR="$(cd $DIR/.. && pwd)"
@@ -6,20 +6,36 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 # Import functions
 . $BIN_DIR/helper/fn
 
-UPDATE_SNAPSHOT=""
-while getopts ":u" o
-do
-	case ${o} in
-		u) UPDATE_SNAPSHOT="-- -u" ;;
-		\?) abort "Invalid option"
-	esac
-done
+usage() {
+	cat <<-EOF
+
+  Usage: $0 [options...]
+
+  Options:
+    -u            Update snapshot
+    -h            Show usage
+
+EOF
+exit 0
+}
 
 # Go to current directory
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
+unset UPDATE_SNAPSHOT
+UPDATE_SNAPSHOT=""
+
 OPT="test"
+
+while getopts "uh" o
+do
+	case ${o} in
+		u) UPDATE_SNAPSHOT="-- -u" ;;
+		h) usage ;;
+		\?) usage ;;
+	esac
+done
 
 # ENV File
 load_env $OPT

@@ -7,8 +7,26 @@ import schema from '../schema/index.js'
 const router = new Router()
 
 async function gql(ctx) {
-	const {query, variables, operationName} = ctx.request.body
-	const result = await graphql(schema, query, undefined, ctx, variables, operationName)
+	let {
+		query,
+		variables,
+		//
+		source,
+		variableValues,
+		operationName,
+	} = ctx.request.body
+
+	source = source ?? query
+	variableValues = variableValues ?? variables
+
+	const result = await graphql({
+		schema,
+		source,
+		variableValues,
+		operationName,
+		contextValue: ctx,
+	})
+
 	if (result.errors) {
 		const [error] = result.errors
 		const {originalError} = error
@@ -18,7 +36,6 @@ async function gql(ctx) {
 		})
 	}
 
-	ctx.set('Cache-Control', 's-maxage=120, stale-while-revalidate=300')
 	ctx.body = result
 }
 
