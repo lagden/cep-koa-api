@@ -17,8 +17,7 @@
 
 Encontre os endereços através do CEP.
 
-
-## Docker
+---
 
 Essa API está disponível Docker Hub: https://hub.docker.com/r/lagden/cep_consulta/
 
@@ -31,7 +30,7 @@ docker pull lagden/cep_consulta
 [Redis](https://redis.io/) é requirido.
 
 
-### Via Docker
+## Via Docker
 
 Exemplo via Docker.
 
@@ -41,7 +40,7 @@ docker run --name cep --network cep-network --host cep-redis -d lagden/cep_consu
 ```
 
 
-### Via Compose
+## Via Compose
 
 Exemplo de um `docker-compose.yml`
 
