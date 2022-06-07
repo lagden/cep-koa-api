@@ -5,7 +5,7 @@
 [![Coverage Status][coveralls-img]][coveralls]
 [![Snyk badge][snyk-img]][snyk]
 
-[dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-8.1.0
+[dockerelease-img]:    https://img.shields.io/docker/v/lagden/cep_consulta/release-8.1.1
 [dockerelease]:        https://hub.docker.com/r/lagden/cep_consulta
 [ci-img]:              https://github.com/lagden/cep-koa-api/actions/workflows/nodejs.yml/badge.svg
 [ci]:                  https://github.com/lagden/cep-koa-api/actions/workflows/nodejs.yml
@@ -77,7 +77,7 @@ services:
       APP_NS: lagden_cep_consulta
       PORT: 30008
       PORT_PUBLISHED: 30008
-      VERSION: release-8.1.0
+      VERSION: release-8.1.1
       #
       CACHE_REDIS_NAMESPACE: lagden_cep_consulta
       CACHE_REDIS_DB: 0

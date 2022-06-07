@@ -6,8 +6,15 @@ const query = `
 query Consulta($cep: String!) {
   consulta(cep: $cep) {
     bairro
-    endereco
+    cep
     cidade
+    complemento
+    complemento2
+    end
+    endereco
+    id
+    status
+    success
     uf
   }
 }`

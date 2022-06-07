@@ -6,7 +6,10 @@ type Dados {
   cep: String
   cidade: String
   complemento: String
+  complemento2: String
+  end: String
   endereco: String
+  id: String
   status: Int
   success: Boolean
   uf: String

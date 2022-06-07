@@ -1,6 +1,6 @@
 {
   "name": "cep-koa-api",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "repository": "lagden/cep-koa-api",
   "description": "Encontre o endereço através do CEP",
   "keywords": [
@@ -25,11 +25,11 @@
     "start": "node server"
   },
   "dependencies": {
-    "@graphql-tools/graphql-file-loader": "7.3.14",
-    "@graphql-tools/load": "7.5.13",
-    "@graphql-tools/schema": "8.3.13",
+    "@graphql-tools/graphql-file-loader": "7.3.15",
+    "@graphql-tools/load": "7.5.14",
+    "@graphql-tools/schema": "8.3.14",
     "@koa/router": "10.1.1",
-    "@tadashi/cep": "2.1.0",
+    "@tadashi/cep": "2.1.1",
     "@tadashi/find-in-cache": "2.2.1",
     "@tadashi/koa-base": "5.1.0",
     "debug": "4.3.4",
