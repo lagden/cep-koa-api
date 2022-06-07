@@ -16,6 +16,13 @@ jobs:
       matrix:
         node-version: [16.x]
 
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: --entrypoint redis-server
+
     steps:
       - uses: actions/checkout@v3
 
@@ -29,6 +36,8 @@ jobs:
 
       - name: Run test
         run: npm test
+        env:
+          REDIS: 127.0.0.1:${{ job.services.redis.ports[6379] }}
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
